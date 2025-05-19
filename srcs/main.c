@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/17 14:21:08 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/17 14:24:42 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/05/19 11:16:26 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	main()
 {
