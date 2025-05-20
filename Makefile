@@ -6,18 +6,18 @@
 #    By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 13:59:30 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/05/17 14:30:24 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/05/20 13:18:57 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address
-READLINE = -Lreadline -lreadline -lhistory -lncurses
+READLINE = -lreadline -Lreadline -lhistory -lncurses
 
 LIBFT = ./libft/libft.a
 
-SRC = main.c
+SRC = main.c utils.c init.c command.c
 
 SRC_D = ./srcs/
 BLT_D = ./srcs/built-ins/
