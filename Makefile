@@ -13,7 +13,9 @@
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address
-READLINE = -lreadline -Lreadline -lhistory -lncurses
+READLINE = -lreadline
+#-Lreadline -lhistory -lncurses
+#gcc srcs/*.c libft/*.c srcs/parser/*.c -lreadline
 
 LIBFT = ./libft/libft.a
 
