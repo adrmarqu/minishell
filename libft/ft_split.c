@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:23:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2024/05/23 11:42:51 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/05/21 13:52:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,6 @@ static char	*ft_make_str(const char *str, int first, int last)
 	return (r);
 }
 
-static char	**ft_free(char **r)
-{
-	int	i;
-
-	i = 0;
-	while (r[i])
-	{
-		free(r[i]);
-		i++;
-	}
-	free(r);
-	return (NULL);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	int		i;
@@ -86,7 +72,7 @@ char	**ft_split(char const *s, char c)
 		{
 			r[j++] = ft_make_str(s, index_word, i);
 			if (!r[j - 1])
-				return (ft_free(r));
+				return (ft_free_split(r), NULL);
 			index_word = -1;
 		}
 	}

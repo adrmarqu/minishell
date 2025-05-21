@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/21 13:28:36 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/05/21 14:16:08 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/05/21 14:17:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "libft.h"
 
-typedef enum e_token_type
+char	*ft_strndup(const char *s, size_t n)
 {
-	WORD,
-	PIPE,
-	AND,
-	OR,
-	IN,
-	OUT,
-	HEREDOC,
-	APPEND,
-	END
-}	t_token_type;
+	size_t	len;
+	char	*copy;
 
-typedef struct s_token
-{
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-}	t_token;
-
-typedef struct s_cmd
-{
-	t_token			*tokens;
-	struct s_cmd	*next;
-}	t_cmd;
-
-char	**split_tokens(char *line);
-
-#endif
+	len = 0;
+	while (len < n && s[len])
+		len++;
+	copy = malloc(len + 1);
+	if (!copy)
+		return (NULL);
+	ft_memcpy(copy, s, len);
+	copy[len] = '\0';
+	return (copy);
+}

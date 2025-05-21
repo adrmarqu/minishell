@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/20 13:58:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:18:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,28 @@
 #  define BUFFER_SIZE 5
 # endif
 
+# define NUMBR "0123456789abcdef"
+
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
+# include <stdarg.h>
+# include <stdio.h>
+
+typedef struct s_flag
+{
+	int		length;
+	int		error;
+	int		fd;
+	int		space;
+	int		minus;
+	int		alter;
+	int		zero;
+	int		width;
+	int		aim;
+	char	sign;
+	char	type;
+}	t_flag;
 
 typedef struct s_list
 {
@@ -31,6 +51,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 
 size_t	ft_strlen(const char *s);
 
@@ -65,6 +86,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+char	**ft_splitset(char const *s, char const **set);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
@@ -95,5 +117,28 @@ int		print_split(const char **split);
 int		splitlen(const char **split);
 
 char	*ft_threejoin(char const *s1, char const *s2, char const *s3);
+
+void	ft_free_split(char **split);
+
+int		fd_printf(int fd, char const *s, ...);
+void	ft_di(int n, t_flag *flag);
+void	ft_u(unsigned int n, t_flag *flag);
+void	ft_dir(unsigned long p, t_flag *flag);
+void	ft_xx(unsigned int n, t_flag *flag);
+
+void	ft_putnbr(unsigned long n, unsigned long base, t_flag *flag);
+void	ft_putchar(char c, t_flag *flag);
+void	ft_putchar_flag(char c, t_flag *flag);
+void	ft_putstr(char *s, t_flag *flag);
+void	ft_putstr_flag(char *s, t_flag *flag);
+
+t_flag	init_struct(void);
+void	reset_flags(t_flag *flag);
+void	get_flags(char **s, t_flag *flag);
+
+void	ft_add_width(t_flag *flag, int len, char c);
+char	*ft_put_flags(char *s, t_flag *flag);
+
+char	*ft_strndup(const char *s, size_t n);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 17:00:31 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/05/19 12:55:57 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/05/21 14:18:12 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,10 @@ ft_strncmp.c ft_toupper.c ft_tolower.c ft_strnstr.c ft_strrchr.c ft_calloc.c\
 ft_putchar_fd.c ft_putstr_fd.c ft_putnbr_fd.c ft_putendl_fd.c ft_substr.c\
 ft_strjoin.c ft_strtrim.c ft_strmapi.c ft_itoa.c ft_split.c ft_striteri.c\
 get_next_line.c ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c\
-ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c\
+ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_isspace.c\
 ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c print_split.c\
+ft_free.c fd_printf.c flags.c ft_num.c init_flags.c putchar.c put_flags.c\
+put_number.c ft_splitset.c ft_strndup.c
 
 OBJ = $(SRC:.c=.o)
 
