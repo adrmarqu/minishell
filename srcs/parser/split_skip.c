@@ -1,43 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   split_skip.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:39:01 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/05/31 12:39:26 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/05/31 12:47:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
+#include "../../inc/parser.h"
+#include "../../libft/libft.h"
 
-# include <stdbool.h>
-
-extern int	g_exit_status;
-
-typedef struct s_env
+void	skip_space(const char **p)
 {
-	char			*var;
-	char			*value;
-	bool			equal;
-	struct s_env	*next;
-}	t_env;
+	while (**p && ft_isspace(**p))
+		(*p)++;
+}
 
-typedef struct s_data
+void	skip_quote(const char **p, char quote)
 {
-	int				shlvl;
-	char			*program_name;
-	t_env			*env;
-	t_env			*local_env;
-}	t_data;
+	while (**p && **p != quote)
+		(*p)++;
+	if (**p == quote)
+		(*p)++;
+}
 
-typedef struct s_exp
+void	skip_word(const char **p, const char **set)
 {
-	char			*str;
-	bool			expansion;
-	struct s_exp	*next;
-}	t_exp;
-
-#endif
+	while (**p && !ft_isspace(**p) && !match_in_set(*p, set)
+		&& **p != '\'' && **p != '"')
+		(*p)++;
+}

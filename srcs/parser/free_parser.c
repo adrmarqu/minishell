@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   free_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:39:01 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/05/31 13:55:07 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/05/31 14:04:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
+#include "../../inc/parser.h"
+#include <stdlib.h>
 
-# include <stdbool.h>
-
-extern int	g_exit_status;
-
-typedef struct s_env
+void	free_token(t_token *token)
 {
-	char			*var;
-	char			*value;
-	bool			equal;
-	struct s_env	*next;
-}	t_env;
+	t_token	*tmp;
 
-typedef struct s_data
+	while (token)
+	{
+		tmp = token;
+		token = token->next;
+		free(tmp->value);
+		free(tmp);
+	}
+}
+
+void	free_comand(t_cmd *cmd)
 {
-	int				shlvl;
-	char			*program_name;
-	t_env			*env;
-	t_env			*local_env;
-}	t_data;
+	t_cmd	*tmp;
 
-typedef struct s_exp
-{
-	char			*str;
-	bool			expansion;
-	struct s_exp	*next;
-}	t_exp;
-
-#endif
+	while (cmd)
+	{
+		tmp = cmd;
+		cmd = cmd->next;
+		free_token(tmp->tokens);
+		free(tmp);
+	}
+}

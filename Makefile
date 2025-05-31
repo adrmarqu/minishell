@@ -6,7 +6,7 @@
 #    By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 13:59:30 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/05/21 13:29:08 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/05/31 14:25:02 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ READLINE = -lreadline
 
 LIBFT = ./libft/libft.a
 
-SRC = main.c utils.c init.c command.c token.c
+SRC = main.c utils.c init.c command.c split.c split_add.c split_skip.c\
+	  token.c free_parser.c expand.c
 
 SRC_D = ./srcs/
 BLT_D = ./srcs/built-ins/

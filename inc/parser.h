@@ -6,12 +6,27 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/21 13:28:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/05/31 14:23:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
+
+/*
+
+   	
+	pipe	= |
+	and		= &&
+ 	or		= ||
+	in		= <
+	out		= >
+	heredoc	= <<
+	append	= >>
+ 
+*/
+
+# include "global.h"
 
 typedef enum e_token_type
 {
@@ -39,6 +54,24 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-char	**split_tokens(char *line);
+char	**split_tokens(char *line, const char **operators);
+
+int		match_in_set(const char *p, const char **set);
+
+void	skip_space(const char **p);
+void	skip_quote(const char **p, char quote);
+void	skip_word(const char **p, const char **set);
+
+void	add_token(char **tokens, int *count, const char *start, int len);
+void	add_quote_token(char **tokens, int *count, char **p);
+void	add_set_token(char **tokens, int *count, char **p, const char **set);
+void	add_word_token(char **tkns, int *count, char **p, const char **set);
+
+t_token	*get_tokens(char *line);
+
+void	free_token(t_token *token);
+void	free_command(t_cmd *cmd);
+
+int		expand(t_token **tokens, t_data data);
 
 #endif

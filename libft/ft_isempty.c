@@ -1,43 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global.h                                           :+:      :+:    :+:   */
+/*   ft_isempty.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:39:01 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/05/31 13:34:28 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/05/31 13:36:15 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GLOBAL_H
-# define GLOBAL_H
+#include "libft.h"
 
-# include <stdbool.h>
-
-extern int	g_exit_status;
-
-typedef struct s_env
+int	ft_isempty(const char *s)
 {
-	char			*var;
-	char			*value;
-	bool			equal;
-	struct s_env	*next;
-}	t_env;
-
-typedef struct s_data
-{
-	int				shlvl;
-	char			*program_name;
-	t_env			*env;
-	t_env			*local_env;
-}	t_data;
-
-typedef struct s_exp
-{
-	char			*str;
-	bool			expansion;
-	struct s_exp	*next;
-}	t_exp;
-
-#endif
+	while (*s && ft_isspace(*s))
+		s++;
+	if (*s != '\0')
+		return (0);
+	return (1);
+}

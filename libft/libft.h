@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/21 14:18:05 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/05/31 13:36:55 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
+int		ft_isempty(const char *s);
 
 size_t	ft_strlen(const char *s);
 
@@ -86,7 +87,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
-char	**ft_splitset(char const *s, char const **set);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 

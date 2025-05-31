@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/20 13:40:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/05/31 14:22:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_signal(int sig)
 	}
 }
 
-char	*close_quotes(char *line)
+static char	*close_quotes(char *line)
 {
 	char	*extra;
 	char	*tmp;
@@ -65,25 +65,28 @@ char	*close_quotes(char *line)
 	return (line);
 }
 
-void	read_prompt(t_data data)
+static void	read_prompt(t_data data)
 {
 	char	*line;
 
-	(void)data;
 	while (42)
 	{
 		line = readline("minishell> ");
 		if (!line)
 			return ;
-		line = close_quotes(line);
-		line = process_command(line);
+		if (!ft_isempty(line))
+		{
+			g_exit_status = 0;
+			line = close_quotes(line);
+			line = process_command(line, data);
+		}
 		if (line[0])
 			add_history(line);
 		free(line);
 	}
 }
 
-void	ft_free_data(t_env *env)
+static void	ft_free_data(t_env *env)
 {
 	t_env	*next;
 
@@ -105,6 +108,9 @@ int	main(int ac, char **av, char **env)
 		return (printf("Error: minishell without arguments"), 1);
 	data.env = init_shell(env);
 	if (!data.env)
+		return (1);
+	data.local_env = malloc(sizeof(t_env));
+	if (!data.local_env)
 		return (ft_free_data(data.env), 1);
 	data.shlvl = get_shlvl();
 	data.program_name = av[0];
@@ -112,5 +118,6 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	read_prompt(data);
 	ft_free_data(data.env);
+	ft_free_data(data.local_env);
 	return (g_exit_status);
 }
