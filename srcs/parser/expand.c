@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:45:03 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/01 12:20:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,20 @@
 
 static char	*get_expansion(char *str, t_env *env, t_env *local)
 {
+	
+
+
+
 	char	*ret;
+	int		len;
+	
+
+	// Contar hasta llegar a ' " $
+	// Hacer un char con lo que habia
+	// Contar hasta el final de la expansion
+	// Hacer un string de la expansion
+	// Expandirlo
+	// Volver a empezar
 
 	// Mirar las comillas
 	// Calcular hasta donde

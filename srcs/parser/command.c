@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:24:42 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/01 12:21:43 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ char	*process_command(char *line, t_data data)
 	if (check_syntaxis(token))
 		return (free_token(token), line);
 
+	(void)data;
 	// Expandir variables (no expandir si esta entre comillas simples)
-	expand(&token, data);
+	//expand(&token, data);
 	// Crear estructura de comandos: Comandos, redirecciones, pipes
 	// 		EJ: echo hola | grep h > out.txt
 	// 		command - pipe - command - redir - file
@@ -75,6 +76,6 @@ char	*process_command(char *line, t_data data)
 	//execute_cmd(cmd);
 	// Actualizar exit status
 	//update();
-	
+
 	return (/*free_command(cmd)*/ free_token(token), line);
 }

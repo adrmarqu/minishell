@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 13:33:22 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/01 13:00:36 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ static t_token	*set_data_token(char *str, t_token *prev)
 	return (token);
 }
 
+static char **split_tokens(char *line, const char **set)
+{
+	char	**split;
+	char	**split_token;
+
+	split = ft_split(line, ' ');
+	if (!split)
+		return (NULL);
+	split_token = ft_subsplit(split, set);
+	ft_free_split(split);
+	if (!split_token)
+		return (NULL);
+	return (split_token);
+}
+
 t_token	*get_tokens(char *line)
 {
 	const char	*operators[] = {"&&", "||", "|", "<<", "<", ">>", ">", NULL};
@@ -64,6 +79,7 @@ t_token	*get_tokens(char *line)
 	split = split_tokens(line, operators);
 	if (!split)
 		return (fd_printf(2, "Error in malloc\n"), NULL);
+	print_split((const char **)split);
 	i = 0;
 	while (split[i])
 	{
