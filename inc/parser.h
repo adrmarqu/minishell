@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 14:23:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:26:37 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ typedef enum e_token_type
 	OUT,
 	HEREDOC,
 	APPEND,
+	OPEN,
+	CLOSE,
 	END
 }	t_token_type;
 

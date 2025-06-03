@@ -6,13 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/01 12:21:43 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/03 21:03:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/print.h"
 #include "../../libft/libft.h"
-#include <stdbool.h>
+
 
 /*
 
@@ -34,24 +35,18 @@
 // export solo a-z, A-Z, 0-9, '_'
 // Si es un heredoc (<<) devolver un line diferente
 
-static void	print_error(char *err)
-{
-	fd_printf(2, "minishell: syntax error near unexpected token `%s'\n", err);
-	g_exit_status = 2;
-}
-
-static bool	check_syntaxis(t_token *token)
+bool	check_syntaxis(t_token *token)
 {
 	if (token->type == AND || token->type == OR || token->type == PIPE)
-		return (print_error(token->value), true);
+		return (error_token(token->value), true);
 	while (token->next)
 	{
 		if (token->type != WORD && token->next->type != WORD)
-			return (print_error(token->next->value), true);
+			return (error_token(token->next->value), true);
 		token = token->next;
 	}
 	if (token->type != WORD)
-		return (print_error(token->value), true);
+		return (error_token(token->value), true);
 	return (false);
 }
 

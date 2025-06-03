@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/01 13:00:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/03 20:27:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static t_token_type	get_type(const char *str)
 		return (HEREDOC);
 	else if (!ft_strncmp(">>", str, len))
 		return (APPEND);
+	else if (!ft_strncmp("(", str, len))
+		return (OPEN);
+	else if (!ft_strncmp(")", str, len))
+		return (CLOSE);
 	else
 		return (WORD);
 }
@@ -53,34 +57,20 @@ static t_token	*set_data_token(char *str, t_token *prev)
 	return (token);
 }
 
-static char **split_tokens(char *line, const char **set)
-{
-	char	**split;
-	char	**split_token;
-
-	split = ft_split(line, ' ');
-	if (!split)
-		return (NULL);
-	split_token = ft_subsplit(split, set);
-	ft_free_split(split);
-	if (!split_token)
-		return (NULL);
-	return (split_token);
-}
-
 t_token	*get_tokens(char *line)
 {
-	const char	*operators[] = {"&&", "||", "|", "<<", "<", ">>", ">", NULL};
+	const char	*op[] = {"&&", "||", "|", "<<", "<", ">>", ">", "(", ")", NULL};
 	char		**split;
 	t_token		*ret;
 	t_token		*token;
 	int			i;
 
-	split = split_tokens(line, operators);
+	split = split_tokens(line, op);
 	if (!split)
 		return (fd_printf(2, "Error in malloc\n"), NULL);
 	print_split((const char **)split);
 	i = 0;
+	token = NULL;
 	while (split[i])
 	{
 		token = set_data_token(split[i], token);
