@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 18:02:17 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:15:05 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,38 +71,17 @@ static void	read_prompt(t_data data)
 	}
 }
 
-static void	ft_free_data(t_env *env)
-{
-	t_env	*next;
-
-	while (env)
-	{
-		next = env->next;
-		free(env->var);
-		free(env->value);
-		free(env);
-		env = next;
-	}
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
 	if (ac != 1)
 		return (printf("Error: minishell without arguments"), 1);
-	data.env = init_shell(env);
-	if (!data.env)
+	if (init_data(&data, av, env))
 		return (1);
-	data.local_env = malloc(sizeof(t_env));
-	if (!data.local_env)
-		return (ft_free_data(data.env), 1);
-	data.shlvl = get_shlvl();
-	data.program_name = av[0];
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	read_prompt(data);
-	ft_free_data(data.env);
-	ft_free_data(data.local_env);
+	ft_free_data(data);
 	return (g_exit_status);
 }
