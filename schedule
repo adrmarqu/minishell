@@ -2,9 +2,6 @@
 	- Expansion de comillas
 	- Expansion de variables
 	- Expandir $?
-- Cerrar input (No interpretar comillas unclosed ni caracteres raros)
-	- Cerrar comillas
-	- Cerrar parentesis
 - Built-ins sin opciones
 	- export
 	- exit

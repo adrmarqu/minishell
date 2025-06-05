@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:52:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:01:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 17:53:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 
 void	error_token(const char *err);
-void	error_eof(const char *err, char c);
+void	error_close(int error);

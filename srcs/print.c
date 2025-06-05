@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:54:17 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:04:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:03:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void	error_token(const char *err)
 	g_exit_status = 2;
 }
 
-void	error_eof(const char *err, char c)
+void	error_close(int error)
 {
-	if (c == '\'' || c == '\"')
-		fd_printf(2, "minishell: %s `%c'\n", err, c);
-	fd_printf(2, "minishell: syntax error: unexpected end of file\n");
-	g_exit_status = 2;
+	if (error)
+		fd_printf(2, "minishell: syntax error quots are not closed\n");
+	else
+		fd_printf(2, "minishell: syntax error parenthesis are not closed\n");
+	g_exit_status = 1;
 }

@@ -6,12 +6,12 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:26:12 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:03:23 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:04:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include <stdbool.h>
+#include "../inc/print.h"
 
 int	get_shlvl(void)
 {
@@ -27,32 +27,30 @@ int	get_shlvl(void)
 	return (lvl);
 }
 
-bool	quotes_are_closed(const char *line, char *token)
+bool	is_closed(const char *line)
 {
 	bool	single;
 	bool	q_double;
-	bool	paren;
+	int		level;
 
 	single = false;
 	q_double = false;
-	paren = false;
+	level = 0;
 	while (*line)
 	{
 		if (*line == '\'' && !q_double)
 			single = !single;
-		else if (*line == '"' && !single)
+		else if (*line == '\"' && !single)
 			q_double = !q_double;
 		else if (*line == '(')
-			paren = !paren;
-		else if (*line == ')' && paren)
-			paren = !paren;
+			level++;
+		else if (*line == ')')
+			level--;
 		line++;
 	}
-	if (single)
-		*token = '\'';
-	else if (q_double)
-		*token = '\"';
-	else if (paren)
-		*token = '(';
-	return (!single && !q_double && !paren);
+	if (single || q_double)
+		error_close(true);
+	if (level != 0)
+		error_close(false);
+	return (!single && !q_double && level == 0);
 }

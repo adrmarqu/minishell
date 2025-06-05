@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 21:00:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:02:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,6 @@ void	handle_signal(int sig)
 	}
 }
 
-static char	*close_quotes(char *line, t_data *data)
-{
-	char	*extra;
-	char	*tmp;
-	char	token;
-
-	while (!quotes_are_closed(line, &token))
-	{
-		extra = readline("> ");
-		if (!extra)
-		{
-			error_eof("unexpected EOF while looking for matching", token);
-			if (token == '(')
-				data->end = true;
-			return (line);
-		}
-		tmp = line;
-		line = ft_threejoin(tmp, "\n", extra);
-		free(tmp);
-		free(extra);
-	}
-	return (line);
-}
-
 static void	read_prompt(t_data data)
 {
 	char	*line;
@@ -86,8 +62,7 @@ static void	read_prompt(t_data data)
 		if (!ft_isempty(line))
 		{
 			g_exit_status = 0;
-			line = close_quotes(line, &data);
-			if (!data.end)
+			if (is_closed(line))
 				line = process_command(line, data);
 		}
 		if (line[0])
