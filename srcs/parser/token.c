@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 20:27:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 20:24:20 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_token	*get_tokens(char *line)
 	split = split_tokens(line, op);
 	if (!split)
 		return (fd_printf(2, "Error in malloc\n"), NULL);
-	print_split((const char **)split);
 	i = 0;
 	token = NULL;
 	while (split[i])

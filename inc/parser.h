@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:32:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 20:27:08 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ t_token	*get_tokens(char *line);
 void	free_token(t_token *token);
 void	free_command(t_cmd *cmd);
 
-int		expand(t_token **tokens, t_data data);
+int		expand(t_token **tokens, t_data *data);
 
 #endif

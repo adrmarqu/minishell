@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:28:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 20:28:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,6 @@
 // export solo a-z, A-Z, 0-9, '_'
 // Si es un heredoc (<<) devolver un line diferente
 
-/*
-bool	check_syntaxis(t_token *token)
-{
-	if (token->type == AND || token->type == OR || token->type == PIPE)
-		return (error_token(token->value), true);
-	while (token->next)
-	{
-	}
-	if (token->type != WORD)
-		return (error_token(token->value), true);
-	return (false);
-}*/
-
 char	*process_command(char *line, t_data *data)
 {
 	t_token	*token;
@@ -56,12 +43,8 @@ char	*process_command(char *line, t_data *data)
 	token = get_tokens(line);
 	if (!token)
 		return (line);
-	//if (check_syntaxis(token))
-	//	return (free_token(token), line);
-
-	(void)data;
 	// Expandir variables (no expandir si esta entre comillas simples)
-	//expand(&token, data);
+	expand(&token, data);
 	// Crear estructura de comandos: Comandos, redirecciones, pipes
 	// 		EJ: echo hola | grep h > out.txt
 	// 		command - pipe - command - redir - file
@@ -72,5 +55,5 @@ char	*process_command(char *line, t_data *data)
 	// Actualizar exit status
 	//update();
 
-	return (/*free_command(cmd)*/ free_token(token), line);
+	return (/*free_command(cmd)*/ line);
 }
