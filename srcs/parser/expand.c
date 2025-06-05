@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/01 12:20:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:43:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,6 @@
 
 static char	*get_expansion(char *str, t_env *env, t_env *local)
 {
-	
-
-
-
 	char	*ret;
 	int		len;
 	

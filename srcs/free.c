@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_parser.c                                      :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/31 13:55:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:32:03 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/06/05 19:20:39 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/06/05 19:41:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/parser.h"
+#include "../inc/global.h"
 #include <stdlib.h>
 
-void	free_token(t_token *token)
+void	ft_free_env(t_env *env)
 {
-	t_token	*next;
+	t_env	*next;
 
-	while (token)
+	while (env)
 	{
-		free(token->value);
-		next = token->next;
-		free(token);
-		token = NULL;
-		token = next;
+		next = env->next;
+		free(env->var);
+		free(env->value);
+		free(env);
+		env = next;
 	}
 }
 
-void	free_comand(t_cmd *cmd)
+void	ft_free_data(t_data *data)
 {
-	t_cmd	*next;
-
-	while (cmd)
-	{
-		free_token(cmd->tokens);
-		next = cmd->next;
-		free(cmd);
-		cmd = NULL;
-		cmd = next;
-	}
+	ft_free_env(data->env);
+	ft_free_env(data->local_env);
+	free(data);
 }

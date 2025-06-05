@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 18:06:29 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/05 19:28:18 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	check_syntaxis(t_token *token)
 	return (false);
 }*/
 
-char	*process_command(char *line, t_data data)
+char	*process_command(char *line, t_data *data)
 {
 	t_token	*token;
 	//t_cmd	*cmd;
