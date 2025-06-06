@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 20:28:23 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/06 18:36:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ char	*process_command(char *line, t_data *data)
 	// Actualizar exit status
 	//update();
 
-	return (/*free_command(cmd)*/ line);
+	free_token(token);
+
+	return (/*free_command(cmd)*/  line);
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 20:27:08 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:00:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_cmd
 }	t_cmd;
 
 char	**split_tokens(char *line, const char **operators);
+char	**split_expand(char *str, int idx);
+char	**split_var(char *str, int pos);
 
 t_token	*get_tokens(char *line);
 
@@ -64,5 +66,8 @@ void	free_token(t_token *token);
 void	free_command(t_cmd *cmd);
 
 int		expand(t_token **tokens, t_data *data);
+
+char	*get_var(char *var, t_env *env, t_env *local);
+
 
 #endif
