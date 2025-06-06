@@ -1,7 +1,6 @@
 - Expansion
-	- Expansion de comillas
-	- Expansion de variables
-	- Expandir $?
+	- Expandir *
+	- Quitar comillas
 - Built-ins sin opciones
 	- export
 	- exit
