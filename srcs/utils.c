@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:26:12 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:18:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/10 19:46:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ bool	is_closed(const char *line)
 			single = !single;
 		else if (*line == '\"' && !single)
 			q_double = !q_double;
-		else if (*line == '(')
+		else if (*line == '(' && !single && !q_double)
 			level++;
-		else if (*line == ')')
+		else if (*line == ')' && !single && !q_double)
 			level--;
 		line++;
 	}

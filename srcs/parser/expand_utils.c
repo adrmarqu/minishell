@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:24:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/06 20:18:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:21:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,11 @@ char	**split_var(char *str, int pos)
 	if (!ret[0] || !ret[2])
 		return (ft_free_split(ret), NULL);
 	return (ret);
+}
+
+bool	is_expansion(const char *str)
+{
+	if (str)
+		return (true);
+	return (false);
 }

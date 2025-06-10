@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/06 20:32:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:24:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 #include "../../libft/libft.h"
+#include <dirent.h>
 
 static char	*expand_var(char *str, int *idx, t_data *data)
 {
@@ -32,60 +33,14 @@ static char	*expand_var(char *str, int *idx, t_data *data)
 	return (ret);
 }
 
-char	*expand_simple(char *str, int *init, char c)
-{
-	int		i;
-	char	*ret;
-
-	i = *init;
-	while (str[i] && str[i + 1] && str[i + 1] != c)
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-	*init = i;
-	while (str[i] && str[i + 2])
-	{
-		str[i] = str[i + 2];
-		i++;
-	}
-	while (str[i])
-		str[i++] = '\0';
-	ret = ft_strdup(str);
-	free(str);
-	return (ret);
-}
-
-char	*expand_double(char *str, int *init, t_data *data)
-{
-	int		i;
-	char	*ret;
-
-	i = *init + 1;
-	while (str[i] && str[i] != '\"')
-	{
-		if (str[i] == '$')
-		{
-			str = expand_var(str, &i, data);
-			if (!str)
-				return (NULL);
-			if (str[i] == '\"')
-				break ;
-		}
-		i++;
-	}
-	ret = ft_strdup(str);
-	free(str);
-	return (ret);
-}
-
-static char	*expand_vars(char *str, t_data *data)
+static char	*find_var_token(char *str, t_data *data)
 {
 	int		i;
 	int		len;
 	bool	simple;
 
 	i = 0;
+	len = ft_strlen(str);
 	simple = false;
 	while (i < len)
 	{
@@ -96,13 +51,31 @@ static char	*expand_vars(char *str, t_data *data)
 			str = expand_var(str, &i, data);
 			if (!str)
 				return (NULL);
+			len = ft_strlen(str);
 		}
 		i++;
-		len = ft_strlen(str);
 	}
-	printf("LINE: %s\n", str);
+	//printf("LINE: %s\n", str);
 	return (str);
 }
+/*
+static char	*expand_wildcard(char *str, int *i)
+{
+	// DIR *dir = opendir(".");
+	// char *nombre = readdir(dir);
+	// closedir(dir);
+}
+
+// Todo lo que hay delante y detras de '*'
+// 1- Buscar '*' en una palabra
+// 2- Buscar una '/' en la palabra encontrada -> no expandir
+// 3- Expandir el asterisco
+// - Si hay mas de un asterisco junto entonces ignorar ("a**b" == "a*b")
+
+static char	*find_wildcard_token(char *str)
+{
+
+}*/
 
 int	expand(t_token **tokens, t_data *data)
 {
@@ -113,14 +86,11 @@ int	expand(t_token **tokens, t_data *data)
 	first = *tokens;
 	while (*tokens)
 	{
-		tmp = expand_vars(ft_strdup((*tokens)->value), data);
+		printf("LINE: %s\n", (*tokens)->value);
+		tmp = find_var_token(ft_strdup((*tokens)->value), data);
 		if (!tmp)
 			return (1);
-
-		// Expandir *
-
-		//new_str = expand_card(tmp);
-		//free(tmp);
+		//new_str = find_wildcard_token(tmp);
 		//if (!new_str)
 		//	return (1);
 
