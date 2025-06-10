@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/10 20:16:35 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:39:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	free_command(t_cmd *cmd);
 int		expand(t_token **tokens, t_data *data);
 
 char	*get_var(char *var, t_env *env, t_env *local);
-bool	is_expansion(const char *str, int i);
+bool	is_expansion(const char *str);
 
 
 #endif

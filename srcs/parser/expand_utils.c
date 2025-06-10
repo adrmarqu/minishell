@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:24:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/10 20:21:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:37:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,26 @@ char	**split_var(char *str, int pos)
 
 bool	is_expansion(const char *str)
 {
-	if (str)
-		return (true);
-	return (false);
+	int		i;
+	bool	ret;
+	bool	simple;
+	bool	q_double;
+
+	i = 0;
+	ret = false;
+	simple = false;
+	q_double = false;
+	while (str[i])
+	{
+		if (str[i] == '\'' && !q_double)
+			simple = !simple;
+		else if (str[i] == '\"' && !simple)
+			q_double = !q_double;
+		else if (str[i] == '/' && !simple && !q_double)
+			return (false);
+		else if (str[i] == '*' && !simple && !q_double)
+			ret = true;
+		i++;
+	}
+	return (ret);
 }
