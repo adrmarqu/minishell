@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/31 13:36:55 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/13 19:30:07 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strrncmp(const char *s1, const char *s2, size_t n);
 
 void	*ft_memchr(const void *s, int c, size_t n);
 
@@ -87,6 +88,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+char	**ft_split_quot(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
