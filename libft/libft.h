@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 19:30:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:43:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,9 @@ void	ft_add_width(t_flag *flag, int len, char c);
 char	*ft_put_flags(char *s, t_flag *flag);
 
 char	*ft_strndup(const char *s, size_t n);
+
+char	*ft_join_split(const char **split);
+
+char	*ft_strstr(const char *haystack, const char *needle);
 
 #endif

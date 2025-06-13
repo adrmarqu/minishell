@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:23:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 18:54:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/13 21:20:24 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ char	**ft_split_quot(char const *s, char c)
 			simple = !simple;
 		else if (s[i] == '\"' && !simple)
 			duple = !duple;
-		else if ((s[i] != c || simple || duple) && start < 0)
+		if ((s[i] != c || simple || duple) && start < 0)
 			start = i;
 		else if (((s[i] == c && !simple && !duple) || (size_t)i == ft_strlen(s)) && start >= 0)
 		{
-			r[j++] = ft_make_str(s, start, i);
-			if (!r[j - 1])
+			r[j] = ft_make_str(s, start, i);
+			if (!r[j++])
 				return (ft_free_split(r), NULL);
 			start = -1;
 		}

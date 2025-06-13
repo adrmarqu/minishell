@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 14:18:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/20 13:58:13 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/13 20:51:44 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*ft_threejoin(char const *s1, char const *s2, char const *s3)
 {
 	char	*line1;
 	char	*line2;
+
 
 	line1 = ft_strjoin(s1, s2);
 	if (!line1)
