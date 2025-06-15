@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 17:56:32 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 21:11:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 14:02:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include "../../libft/libft.h"
 #include "../../inc/parser.h"
 
-static char	*expand_wildcard(const char **dir, const char **parts, char *str)
+static char	*expand_wildcard(char **dir, char **parts, char *str)
 {
 	char	**cnc;
 	char	*ret;
 	int		i;
 
-	cnc = malloc((splitlen(dir) + 1) * sizeof(char *));
+	cnc = malloc((ft_splitlen(dir) + 1) * sizeof(char *));
 	if (!cnc)
 		return (NULL);
 	i = 0;
 	while (*dir)
 	{
-		if (is_match(*dir, parts, str))
+		if (is_match(*dir, parts))
 		{
 			cnc[i] = ft_strdup(*dir);
 			if (!cnc[i++])
@@ -35,10 +35,10 @@ static char	*expand_wildcard(const char **dir, const char **parts, char *str)
 		dir++;
 	}
 	cnc[i] = NULL;
-	if (i == 0)
-		ret = ft_strdup(str);
+	if (i)
+		ret = ft_join_split(cnc);
 	else
-		ret = ft_join_split((const char **)cnc);
+		ret = ft_strdup(str);
 	ft_free_split(cnc);
 	return (ret);
 }
@@ -92,26 +92,21 @@ static char	**get_files_dir(void)
 
 char	*find_wildcard_token(char *str)
 {
-	char	**current_dir;
-	char	**parts;
+	char	**split;
+	char	**dir;
 	char	*r;
 
 	if (!is_expansion(str))
 		return (str);
-	parts = ft_split_quot(str, '*');
-	if (!parts)
+	split = split_wildcard(str);
+	if (!split)
 		return (NULL);
-	current_dir = get_files_dir();
-	if (!current_dir)
-		return (ft_free_split(parts), NULL);
-	r = expand_wildcard((const char **)current_dir, (const char **)parts, str);
-
-	int i = 0;
-	while (parts && parts[i])
-	{
-		printf("DIR: %p - %s\n", &parts[i], parts[i]);
-		i++;
-	}
-
-	return (ft_free_split(current_dir), ft_free_split(parts), free(str), r);
+	dir = get_files_dir();
+	if (!dir)
+		return (ft_free_split(split), NULL);
+	r = expand_wildcard(dir, split, str);
+	ft_free_split(dir);
+	ft_free_split(split);
+	free(str);
+	return (r);
 }

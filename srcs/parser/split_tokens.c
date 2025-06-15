@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   split_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 16:55:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 20:13:00 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 12:37:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include <stdbool.h>
 
-int	is_set(char *line, const char **set)
+static int	is_set(char *line, const char **set)
 {
 	int		len;
 	int		i;
@@ -28,9 +28,6 @@ int	is_set(char *line, const char **set)
 	}
 	return (0);
 }
-
-// '  Hola << que<<a    <<<<"<<"tal<<<   '
-// 'Hola << que << a << << "<<"tal << <'
 
 static int	get_size(char *line, const char **set)
 {
@@ -51,7 +48,7 @@ static int	get_size(char *line, const char **set)
 	return (i);
 }
 
-char	*get_word(char *line, const char **set)
+static char	*get_word(char *line, const char **set)
 {
 	char	*str;
 	int		i;
@@ -73,7 +70,7 @@ char	*get_word(char *line, const char **set)
 	return (str);
 }
 
-int	get_num_tokens(char *line, const char **set)
+static int	get_num_tokens(char *line, const char **set)
 {
 	int		num;
 	char	*tmp;

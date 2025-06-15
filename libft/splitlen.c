@@ -6,11 +6,11 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 14:26:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/05/19 14:27:09 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 12:33:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	splitlen(const char **split)
+int	ft_splitlen(char **split)
 {
 	int	i;
 

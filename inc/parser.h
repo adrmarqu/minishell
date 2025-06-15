@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 19:50:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 14:02:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 char	**split_tokens(char *line, const char **operators);
+char	**split_wildcard(char *str);
 char	**split_expand(char *str, int idx);
 char	**split_var(char *str, int pos);
 
@@ -72,6 +73,6 @@ bool	is_expansion(const char *str);
 
 char	*find_wildcard_token(char *str);
 
-bool	is_match(const char *s, const char **set, char *str);
+bool	is_match(const char *s, char **set);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 20:43:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 12:34:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 char	*get_next_line(int fd);
 
-int		print_split(const char **split);
-int		splitlen(const char **split);
+int		ft_print_split(char **split);
+int		ft_splitlen(char **split);
 
 char	*ft_threejoin(char const *s1, char const *s2, char const *s3);
+char	*ft_join_split(char **split);
 
 void	ft_free_split(char **split);
 
@@ -143,7 +144,6 @@ char	*ft_put_flags(char *s, t_flag *flag);
 
 char	*ft_strndup(const char *s, size_t n);
 
-char	*ft_join_split(const char **split);
 
 char	*ft_strstr(const char *haystack, const char *needle);
 

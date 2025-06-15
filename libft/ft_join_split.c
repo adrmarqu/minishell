@@ -6,19 +6,19 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 19:58:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 20:49:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 12:33:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_join_split(const char **split)
+char	*ft_join_split(char **split)
 {
 	char	*ret;
 	char	*tmp;
 	int		i;
 
-	i = splitlen(split);
+	i = ft_splitlen(split);
 	if (!split || i == 0)
 		return (ft_strdup(""));
 	if (i == 1)
