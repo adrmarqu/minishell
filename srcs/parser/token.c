@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 20:24:20 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:39:00 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 
 static t_token_type	get_type(const char *str)
 {
-	int	len;
+	const int	len = ft_strlen(str);
 
-	len = ft_strlen(str);
-	if (len > 2)
-		return (WORD);
 	if (!ft_strncmp("|", str, len))
 		return (PIPE);
 	else if (!ft_strncmp("&&", str, len))

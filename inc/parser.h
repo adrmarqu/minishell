@@ -6,41 +6,28 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 17:48:52 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 19:27:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-/*
-
-   	
-	pipe	= |
-	and		= &&
- 	or		= ||
-	in		= <
-	out		= >
-	heredoc	= <<
-	append	= >>
- 
-*/
-
 # include "global.h"
 
 typedef enum e_token_type
 {
-	WORD,
-	PIPE,
-	AND,
-	OR,
-	IN,
-	OUT,
-	HEREDOC,
-	APPEND,
-	OPEN,
-	CLOSE,
-	END
+	WORD,		// Comando o argumento
+	PIPE,		// |
+	AND,		// &&
+	OR,			// ||
+	IN,			// <
+	OUT,		// >
+	HEREDOC,	// <<
+	APPEND,		// >> 
+	OPEN,		// (
+	CLOSE,		// )
+	VOID		// void
 }	t_token_type;
 
 typedef struct s_token
@@ -74,5 +61,7 @@ bool	is_expansion(const char *str);
 char	*find_wildcard_token(char *str);
 
 bool	is_match(const char *s, char **set);
+bool	check_syntaxis(t_token *token);
+void	update(int exit);
 
 #endif
