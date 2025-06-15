@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 20:12:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:49:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,9 @@ int	expand(t_token **tokens, t_data *data)
 		new_str = find_wildcard_token(tmp);
 		if (!new_str)
 			return (1);
-
-		printf("LINE: %s\n", new_str);
-
-		// Quitar comillas
-
+		new_str = ft_clean_quotes(new_str);
 		free((*tokens)->value);
 		(*tokens)->value = new_str;
-		//(*tokens)->value = tmp;
 		*tokens = (*tokens)->next;
 	}
 	*tokens = first;

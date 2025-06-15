@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 12:37:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 13:24:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:46:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ static char	*get_str(char **str)
 	if (**str == '*')
 		s = ft_strdup("*");
 	else
+	{
 		s = ft_substr(*str, 0, len);
+		s = ft_clean_quotes(s);
+	}
 	*str += len;
 	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 12:34:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:45:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ char	*ft_put_flags(char *s, t_flag *flag);
 
 char	*ft_strndup(const char *s, size_t n);
 
+char	*ft_clean_quotes(char *str);
 
 char	*ft_strstr(const char *haystack, const char *needle);
 
