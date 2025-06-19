@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 19:39:00 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:34:09 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_token	*get_tokens(char *line)
 	{
 		token = set_data_token(split[i], token);
 		if (!token)
-			return (free(split), NULL);
+			return (free(split), free_token(ret), NULL);
 		if (!i)
 			ret = token;
 		i++;

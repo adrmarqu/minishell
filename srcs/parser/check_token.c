@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:15:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 19:55:31 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:59:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,44 +40,36 @@ static bool	check_last(t_token *token)
 	return (true);
 }
 
+// < << > >> | || && ( )
+
+/*
+	ALL () ALL 
+	
+	WORD, CLOSE &&|| WORD, DIR, OPEN
+	
+	WORD, CLOSE | WORD, OPEN
+	
+	<		WORD
+	<<		WORD
+	>		WORD
+	>>		WORD
+
+*/
+
 bool	check_syntaxis(t_token *token)
 {
-	t_token			*curr;
-	t_token_type	prev;
-	t_token_type	next;
+//	t_token			*curr;
+//	t_token_type	prev;
+//	t_token_type	next;
 
-	prev = VOID;
-	curr = token;
+//	prev = VOID;
+//	curr = token;
 	if (!check_first(token))
 		return (false);
-	while (curr->next)
-	{
-		next = curr->next->type;
-		if (curr->type == OR || curr->type == AND || curr->type == PIPE)
-		{
-			if (prev != WORD || next != WORD)
-				return (error_token(curr->value), false);
-		}
-		else if (curr->type == IN || curr->type == OUT
-				|| curr->type == APPEND || curr->type == HEREDOC)
-		{
-			if ((prev != VOID && prev != WORD) || next != WORD)
-				return (error_token(curr->value), false);
-		}
-		else if (curr->type == OPEN)
-		{
-			if ((prev != OPEN && prev != CLOSE && prev != WORD && prev != VOID)
-				|| (next != WORD && next != OPEN && next != CLOSE))
-				return (error_token(curr->value), false);
-		}
-		else if (curr->type == CLOSE)
-		{
-			if ((prev != OPEN && prev != CLOSE && prev != WORD)
-				|| (next != WORD && next != OPEN && next != CLOSE))
-				return (error_token(curr->value), false);
-		}
-		curr = curr->next;
-	}
+	//while (curr->next)
+	//{
+//
+//	}
 	if (!check_last(token))
 		return (false);
 	return (true);
