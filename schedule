@@ -13,4 +13,4 @@
 	- && y ||
 	- wildcards (*)
 	 
-
+env -i ./minishell -> void vacio

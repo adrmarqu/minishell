@@ -6,13 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:42:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:26:24 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include "../inc/global.h"
 #include "../inc/utils.h"
+#include "../inc/minishell.h"
 
 static bool	set_data_struct(t_env **env, char const *str)
 {
@@ -34,7 +34,56 @@ static bool	set_data_struct(t_env **env, char const *str)
 	return (true);
 }
 
-void	*init_shell(char **envp)
+static t_env	*set_env_var(t_env **prev, char *var, char *value, bool equal)
+{
+	t_env	*env;
+
+	env = malloc(sizeof(t_env));
+	if (!env)
+		return (NULL);
+	env->var = ft_strdup(var);
+	if (!env->var)
+		return (free(env), NULL);
+	env->value = ft_strdup(value);
+	if (!env->value)
+		return (free(env), free(env->var), NULL);
+	env->equal = equal;
+	env->next = NULL;
+	if (prev)
+		(*prev)->next = env;
+	return (env);
+}
+
+static void	*set_env(void)
+{
+	t_env	*first;
+	t_env	*a;
+	t_env	*b;
+	char	cwd[1024];
+	char	*lvl;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		return (fd_printf(2, "getcwd() error\n"), NULL);
+	first = set_env_var(NULL, "PWD", cwd, true);
+	if (!first)
+		return (NULL);
+	a = set_env_var(&first, "OLDPWD", "", false);
+	if (!a)
+		return (ft_free_env(first), NULL);
+	lvl = ft_itoa(get_shlvl());
+	if (!lvl)
+		return (fd_printf(2, "itoa failed\n"), ft_free_env(first), NULL);
+	b = set_env_var(&a, "SHLVL", lvl, true);
+	free(lvl);
+	if (!b)
+		return (ft_free_env(first), NULL);
+	a = set_env_var(&b, "_", "/usr/bin/env", true);
+	if (!a)
+		return (ft_free_env(first), NULL);
+	return ((void *)first);
+}
+
+static void	*init_env(char **envp)
 {
 	t_env	*first;
 	t_env	*env;
@@ -42,7 +91,7 @@ void	*init_shell(char **envp)
 	int		i;
 
 	if (!envp || !*envp)
-		return (fd_printf(2, "Envp is void\n"), NULL);
+		return (set_env());
 	first = NULL;
 	env = NULL;
 	i = 0;
@@ -72,7 +121,7 @@ t_data	*init_data(char **av, char **env)
 		return (NULL);
 	ret->shlvl = get_shlvl();
 	ret->program_name = av[0];
-	ret->env = init_shell(env);
+	ret->env = init_env(env);
 	ret->local_env = malloc(sizeof(t_env));
 	ret->local_env->var = NULL;
 	ret->local_env->value = NULL;
