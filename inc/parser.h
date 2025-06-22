@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 19:27:23 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 14:16:27 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@
 typedef enum e_token_type
 {
 	WORD,		// Comando o argumento
-	PIPE,		// |
+	OP,			// | && ||
+	REDIR,		// < << > >>
+	/*PIPE,		// |
 	AND,		// &&
 	OR,			// ||
 	IN,			// <
 	OUT,		// >
 	HEREDOC,	// <<
-	APPEND,		// >> 
+	APPEND,		// >>*/ 
 	OPEN,		// (
 	CLOSE,		// )
-	VOID		// void
+	VOID,		// void
+	END
 }	t_token_type;
 
 typedef struct s_token

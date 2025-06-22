@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/19 18:39:18 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 11:40:43 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*process_command(char *line, t_data *data)
 	if (!token)
 		return (update(2), line);
 	if (check_syntaxis(token))
-		return (line);
+		return (free_token(token), line);
 	//cmd = split_cmd(token);
 	expand(&token, data);
 	free_token(token);
