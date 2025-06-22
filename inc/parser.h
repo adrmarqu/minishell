@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 14:16:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 19:31:43 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,14 @@
 
 typedef enum e_token_type
 {
-	WORD,		// Comando o argumento
-	OP,			// | && ||
-	REDIR,		// < << > >>
-	/*PIPE,		// |
-	AND,		// &&
-	OR,			// ||
-	IN,			// <
-	OUT,		// >
-	HEREDOC,	// <<
-	APPEND,		// >>*/ 
-	OPEN,		// (
-	CLOSE,		// )
-	VOID,		// void
+	WORD,
+	REDIR,
+	PIPE,
+	AND,
+	OR,
+	OPEN,
+	CLOSE,
+	VOID,
 	END
 }	t_token_type;
 
@@ -42,8 +37,10 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	t_token			*tokens;
-	struct s_cmd	*next;
+	t_token			*tokens;	// datos solo si no hay raiz
+	t_type			op;			// tipo de operacion con el siguiente comando
+	struct s_cmd	*left;		// comando izquierdo
+	struct s_cmd	*rigth;		// comando derecho
 }	t_cmd;
 
 char	**split_tokens(char *line, const char **operators);
@@ -52,9 +49,10 @@ char	**split_expand(char *str, int idx);
 char	**split_var(char *str, int pos);
 
 t_token	*get_tokens(char *line);
+t_token	*new_token(t_token *prev, t_token *current);
 
-void	free_token(t_token *token);
-void	free_command(t_cmd *cmd);
+void	ft_free_token(t_token *token);
+void	ft_free_command(t_cmd *cmd);
 
 int		expand(t_token **tokens, t_data *data);
 
@@ -66,5 +64,7 @@ char	*find_wildcard_token(char *str);
 bool	is_match(const char *s, char **set);
 bool	check_syntaxis(t_token *token);
 void	update(int exit);
+
+t_cmd	*split_cmd(t_token *token);
 
 #endif

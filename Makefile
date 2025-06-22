@@ -6,7 +6,7 @@
 #    By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 13:59:30 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/06/15 19:39:14 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/06/22 16:35:16 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT = ./libft/libft.a
 
 SRC = main.c utils.c init.c command.c split_tokens.c token.c free_parser.c \
 	  print.c free.c expand.c expand_utils.c expand_wildcard.c wildcard_utils.c \
-	  split_wildcard.c check_token.c
+	  split_wildcard.c check_token.c split_cmd.c
 
 SRC_D = ./srcs/
 BLT_D = ./srcs/built-ins/

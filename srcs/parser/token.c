@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 13:12:10 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 18:47:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static t_token_type	get_type(const char *str)
 	const int	len = ft_strlen(str);
 
 	if (!ft_strncmp("|", str, len))
-		return (OP);
+		return (PIPE);
 	else if (!ft_strncmp("&&", str, len))
-		return (OP);
+		return (AND);
 	else if (!ft_strncmp("||", str, len))
-		return (OP);
+		return (OR);
 	else if (!ft_strncmp("<", str, len))
 		return (REDIR);
 	else if (!ft_strncmp(">", str, len))
@@ -39,18 +39,33 @@ static t_token_type	get_type(const char *str)
 		return (WORD);
 }
 
-static t_token	*set_data_token(char *str, t_token *prev)
+t_token	*new_token(t_token *prev, t_token *current)
 {
-	t_token			*token;
+	t_token	*token;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return (fd_printf(2, "Error in malloc\n"), NULL);
+		return (NULL);
+	if (current)
+		token->type = current->type;
+	else
+		token->type = VOID;
+	token->value = NULL;
+	token->next = NULL;
 	if (prev)
 		prev->next = token;
+	return (token);
+}
+
+static t_token	*set_data_token(char *str, t_token *prev)
+{
+	t_token	*token;
+
+	token = new_token(prev, NULL);
+	if (!token)
+		return (fd_printf(2, "Error in malloc\n"), NULL);
 	token->type = get_type(str);
 	token->value = str;
-	token->next = NULL;
 	return (token);
 }
 
@@ -71,7 +86,7 @@ t_token	*get_tokens(char *line)
 	{
 		token = set_data_token(split[i], token);
 		if (!token)
-			return (free(split), free_token(ret), NULL);
+			return (free(split), ft_free_token(ret), NULL);
 		if (!i)
 			ret = token;
 		i++;

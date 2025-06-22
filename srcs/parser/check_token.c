@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:15:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 16:16:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:59:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static bool	check_operators(t_token *token)
 		if (token->type != OPEN && token->type != CLOSE)
 		{
 			set_types(&prev, &curr, &next, token);
-			if (curr == OP)
+			if (curr == PIPE || curr == AND || curr == OR)
 			{
 				if (prev != WORD)
 					return (error_token(token->value), false);
@@ -84,7 +84,7 @@ static bool	check_operators(t_token *token)
 static bool	check_parentesis(UIT prev, UIT curr, UIT next)
 {
 	const UIT	open_prev[] = {WORD, REDIR, CLOSE, END};
-	const UIT	close_prev[] = {OP, REDIR, END};
+	const UIT	close_prev[] = {PIPE, AND, OR, REDIR, END};
 	const UIT	close_next[] = {WORD, OPEN, END};
 	int			i;
 
@@ -94,7 +94,7 @@ static bool	check_parentesis(UIT prev, UIT curr, UIT next)
 		while (open_prev[i] != END)
 			if (prev == open_prev[i++])
 				return (false);
-		if (next == OP)
+		if (next == AND || next == OR || next == PIPE)
 			return (false);
 	}
 	else
@@ -127,7 +127,9 @@ bool	check_syntaxis(t_token *token)
 		if (token->type == OPEN || token->type == CLOSE)
 		{
 			if (!check_parentesis(prev, token->type, next))
+			{
 				return (error_token(token->value), false);
+			}
 		}
 		prev = token->type;
 		token = token->next;

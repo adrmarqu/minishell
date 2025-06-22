@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 11:40:43 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:59:39 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,21 @@ void	update(int exit)
 char	*process_command(char *line, t_data *data)
 {
 	t_token	*token;
-	//t_cmd	*cmd;
+	t_cmd	*cmd;
 
 	token = get_tokens(line);
 	if (!token)
 		return (update(2), line);
-	if (check_syntaxis(token))
-		return (free_token(token), line);
-	//cmd = split_cmd(token);
+	if (!check_syntaxis(token))
+		return (ft_free_token(token), line);
+	cmd = split_cmd(token);
+	if (!cmd)
+		return (line);
 	expand(&token, data);
-	free_token(token);
+	ft_free_token(token);
 	//expand(&cmd, data);
 	//execute_cmd(cmd);
 	//update_exit_status();
-	//free_command(cmd);
+	//ft_free_command(cmd);
 	return (line);
 }
