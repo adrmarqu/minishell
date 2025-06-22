@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:15:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 14:27:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:16:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ static bool	check_parentesis(UIT prev, UIT curr, UIT next)
 	else
 	{
 		while (close_prev[i] != END)
-			if (prev == open_prev[i++])
+			if (prev == close_prev[i++])
 				return (false);
 		i = 0;
 		while (close_next[i] != END)
@@ -117,6 +117,7 @@ bool	check_syntaxis(t_token *token)
 
 	if (!check_operators(token) || !check_redirections(token))
 		return (false);
+	prev = VOID;
 	while (token)
 	{
 		if (token->next)
