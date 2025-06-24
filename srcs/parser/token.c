@@ -6,11 +6,12 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 18:47:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:15:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/print.h"
 #include "../../libft/libft.h"
 
 static t_token_type	get_type(const char *str)
@@ -39,6 +40,26 @@ static t_token_type	get_type(const char *str)
 		return (WORD);
 }
 
+int	get_max_depth(t_token *token)
+{
+	int	depth;
+	int	max;
+
+	max = 0;
+	depth = 0;
+	while (token)
+	{
+		if (token->type == OPEN)
+			depth++;
+		else if (token->type == CLOSE)
+			depth--;
+		if (depth > max)
+			max = depth;
+		token = token->next;
+	}
+	return (max);
+}
+
 t_token	*new_token(t_token *prev, t_token *current)
 {
 	t_token	*token;
@@ -63,7 +84,7 @@ static t_token	*set_data_token(char *str, t_token *prev)
 
 	token = new_token(prev, NULL);
 	if (!token)
-		return (fd_printf(2, "Error in malloc\n"), NULL);
+		return (error_memory("token/set_data_token()"), NULL);
 	token->type = get_type(str);
 	token->value = str;
 	return (token);
@@ -79,7 +100,7 @@ t_token	*get_tokens(char *line)
 
 	split = split_tokens(line, op);
 	if (!split)
-		return (fd_printf(2, "Error in malloc\n"), NULL);
+		return (error_memory("token/get_tokens()"), NULL);
 	i = 0;
 	token = NULL;
 	while (split[i])

@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/19 18:26:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:13:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/utils.h"
+#include "../inc/print.h"
 #include "../inc/minishell.h"
 
 static bool	set_data_struct(t_env **env, char const *str)
@@ -99,7 +100,7 @@ static void	*init_env(char **envp)
 	{
 		tmp = malloc(sizeof(t_env));
 		if (!tmp)
-			return (fd_printf(2, "Error in malloc\n"), NULL);
+			return (error_memory("init/init_env()"), NULL);
 		if (!set_data_struct(&tmp, envp[i++]))
 			return (NULL);
 		if (first == NULL)

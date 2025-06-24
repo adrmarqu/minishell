@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:55:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 16:31:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/24 14:09:35 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,12 @@ void	ft_free_token(t_token *token)
 	}
 }
 
-void	ft_free_comand(t_cmd *cmd)
+void	ft_free_command(t_cmd *cmd)
 {
-	t_cmd	*next;
-
-	while (cmd)
-	{
-		ft_free_token(cmd->tokens);
-		next = cmd->next;
-		free(cmd);
-		cmd = NULL;
-		cmd = next;
-	}
+	if (!cmd)
+		return ;
+	ft_free_command(cmd->left);
+	ft_free_command(cmd->right);
+	ft_free_token(cmd->command);
+	free(cmd);
 }

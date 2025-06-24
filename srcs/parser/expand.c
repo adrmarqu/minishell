@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 17:49:52 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:46:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*find_var_token(char *str, t_data *data)
 	return (str);
 }
 
-int	expand(t_token **tokens, t_data *data)
+bool	expand(t_token **tokens, t_data *data)
 {
 	t_token	*first;
 	char	*new_str;
@@ -69,15 +69,15 @@ int	expand(t_token **tokens, t_data *data)
 	{
 		tmp = find_var_token(ft_strdup((*tokens)->value), data);
 		if (!tmp)
-			return (1);
+			return (false);
 		new_str = find_wildcard_token(tmp);
 		if (!new_str)
-			return (1);
+			return (false);
 		new_str = ft_clean_quotes(new_str);
 		free((*tokens)->value);
 		(*tokens)->value = new_str;
 		*tokens = (*tokens)->next;
 	}
 	*tokens = first;
-	return (0);
+	return (true);
 }
