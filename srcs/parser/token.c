@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:13:28 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/24 14:15:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:01:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	get_max_depth(t_token *token)
 	int	depth;
 	int	max;
 
+	if (!token)
+		return (-1);
 	max = 0;
 	depth = 0;
 	while (token)
@@ -60,32 +62,13 @@ int	get_max_depth(t_token *token)
 	return (max);
 }
 
-t_token	*new_token(t_token *prev, t_token *current)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-		return (NULL);
-	if (current)
-		token->type = current->type;
-	else
-		token->type = VOID;
-	token->value = NULL;
-	token->next = NULL;
-	if (prev)
-		prev->next = token;
-	return (token);
-}
-
 static t_token	*set_data_token(char *str, t_token *prev)
 {
 	t_token	*token;
 
-	token = new_token(prev, NULL);
+	token = new_token(prev, get_type(str), NULL);
 	if (!token)
 		return (error_memory("token/set_data_token()"), NULL);
-	token->type = get_type(str);
 	token->value = str;
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 19:15:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/22 17:59:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:49:40 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static bool	check_parentesis(UIT prev, UIT curr, UIT next)
 		while (open_prev[i] != END)
 			if (prev == open_prev[i++])
 				return (false);
-		if (next == AND || next == OR || next == PIPE)
+		if (next == AND || next == OR || next == PIPE || next == CLOSE)
 			return (false);
 	}
 	else

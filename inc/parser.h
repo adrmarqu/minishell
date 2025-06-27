@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/24 13:48:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/27 18:09:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ char	**split_expand(char *str, int idx);
 char	**split_var(char *str, int pos);
 
 t_token	*get_tokens(char *line);
-t_token	*new_token(t_token *prev, t_token *current);
+t_token *new_token(t_token *prev, t_token_type op, char *s);
 
 void	ft_free_token(t_token *token);
+void	ft_free_two_tokens(t_token *a, t_token *b);
 void	ft_free_command(t_cmd *cmd);
 
 bool	expand(t_token **tokens, t_data *data);
@@ -68,6 +69,8 @@ bool	check_syntaxis(t_token *token);
 void	update(int exit);
 
 t_cmd	*build_cmd_tree(t_token *token);
-t_cmd	*new_cmd(t_token *root);
+t_cmd	*new_cmd(t_token *copy);
+
+t_token	*strip_outer_parens(t_token *tokens);
 
 #endif

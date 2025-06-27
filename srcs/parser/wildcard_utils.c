@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/13 19:20:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/15 14:01:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:58:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_match(const char *s, char **set)
 
 	if (ft_strncmp(set[0], "*", ft_strlen(set[0]))
 		&& ft_strncmp(s, set[0], ft_strlen(set[0])))
-		return (false);	
+		return (false);
 	len = ft_splitlen(set);
 	if (ft_strncmp(set[len - 1], "*", ft_strlen(set[len - 1]))
 		&& ft_strncmp(s, set[len - 1], ft_strlen(set[len - 1])))
