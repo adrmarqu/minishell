@@ -13,6 +13,7 @@
 #include "../../inc/parser.h"
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
+#include "../../inc/free.h"
 
 static void	set_portions(t_token **a, t_token **b, t_token *t, t_token *r)
 {

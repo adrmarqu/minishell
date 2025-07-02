@@ -13,7 +13,7 @@
 #include "../libft/libft.h"
 #include "../inc/utils.h"
 #include "../inc/print.h"
-#include "../inc/minishell.h"
+#include "../inc/free.h"
 
 static bool	set_data_struct(t_env **env, char const *str)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/free.h"
 #include "../../libft/libft.h"
 
 t_cmd	*new_cmd(t_token *copy)

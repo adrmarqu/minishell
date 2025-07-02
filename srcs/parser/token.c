@@ -13,6 +13,7 @@
 #include "../../inc/parser.h"
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
+#include "../../inc/free.h"
 
 static t_token_type	get_type(const char *str)
 {

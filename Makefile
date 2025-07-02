@@ -15,13 +15,15 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 READLINE = -lreadline
 #-Lreadline -lhistory -lncurses
-#gcc srcs/*.c libft/*.c srcs/parser/*.c -lreadline
+#gcc srcs/*.c libft/*.c srcs/parser/*.c srcs/built-ins/*.c -lreadline
 
 LIBFT = ./libft/libft.a
 
 SRC = main.c utils.c init.c command.c split_tokens.c token.c ft_free_parser.c \
 	  print.c free.c expand.c expand_utils.c expand_wildcard.c wildcard_utils.c \
-	  split_wildcard.c check_token.c build_cmd.c create.c
+	  split_wildcard.c check_token.c build_cmd.c create.c execute_tree.c execute.c \
+	  cd_mini.c env_mini.c export_mini.c unset_mini.c echo_mini.c exit_mini.c \
+	  pwd_mini.c
 
 SRC_D = ./srcs/
 BLT_D = ./srcs/built-ins/

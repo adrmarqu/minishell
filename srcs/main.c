@@ -20,6 +20,7 @@
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/print.h"
+#include "../inc/free.h"
 
 /*
 

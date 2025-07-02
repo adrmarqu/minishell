@@ -13,6 +13,7 @@
 #include <dirent.h>
 #include "../../libft/libft.h"
 #include "../../inc/parser.h"
+#include "../../inc/utils.h"
 
 static char	*expand_wildcard(char **dir, char **parts, char *str)
 {

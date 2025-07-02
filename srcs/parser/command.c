@@ -13,6 +13,7 @@
 #include "../../inc/parser.h"
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
+#include "../../inc/free.h"
 
 // Si es un heredoc (<<) devolver un line diferente
 
@@ -32,40 +33,6 @@ void	print_token(t_token *t)
 	printf("\n");
 }
 
-t_token	*get_lefty_token(t_cmd **cmd)
-{
-	t_token	*ret;
-
-	ret = NULL;
-	if ((*cmd)->command)
-	{
-		ret = (*cmd)->command;
-		(*cmd)->command = NULL;
-		return (ret);
-	}
-	if ((*cmd)->left)
-	{
-		ret = get_lefty_token(&(*cmd)->left);
-		if (!(*cmd)->left->left && !(*cmd)->left->right)
-		{
-			free((*cmd)->left);
-			(*cmd)->left = NULL;
-		}
-		return (ret);
-	}
-	if ((*cmd)->right)
-	{
-		ret = get_lefty_token(&(*cmd)->right);
-		if (!(*cmd)->right->left && !(*cmd)->right->right)
-		{
-			free((*cmd)->right);
-			(*cmd)->right = NULL;
-		}
-		return (ret);
-	}
-	return (NULL);
-}
-
 char	*process_command(char *line, t_data *data)
 {
 	t_cmd		*cmd;
@@ -79,16 +46,6 @@ char	*process_command(char *line, t_data *data)
 	cmd = build_cmd_tree(token);
 	if (!cmd)
 		return (line);
-	while (42)
-	{
-		token = get_lefty_token(&cmd);
-		if (!token)
-			break ;
-		print_token(token);
-		//if (expand(&list->token, data))
-		//	return (ft_free_command(cmd), line);
-		//execute_cmd(token, data);
-	}
-	(void)data;
+	execute_cmd_tree(cmd, data, -1, -1);
 	return (line);
 }

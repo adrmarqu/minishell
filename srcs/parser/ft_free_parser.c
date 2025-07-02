@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../inc/free.h"
 #include <stdlib.h>
 
 void	ft_free_token(t_token *token)

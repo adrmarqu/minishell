@@ -41,4 +41,32 @@ typedef struct s_exp
 	struct s_exp	*next;
 }	t_exp;
 
+typedef enum e_token_type
+{
+	WORD,
+	REDIR,
+	PIPE,
+	AND,
+	OR,
+	OPEN,
+	CLOSE,
+	VOID,
+	END
+}	t_token_type;
+
+typedef struct s_token
+{
+	t_token_type		type;
+	char				*value;
+	struct s_token		*next;
+}	t_token;
+
+typedef struct s_cmd
+{
+	t_token				*command;
+	t_token_type		op;
+	struct s_cmd		*left;
+	struct s_cmd		*right;
+}	t_cmd;
+
 #endif

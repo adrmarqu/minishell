@@ -18,4 +18,7 @@
 int		get_shlvl(void);
 bool	is_closed(const char *line);
 
+bool	is_expansion(const char *str);
+bool	isbuiltin(char *command);
+bool	is_match(const char *s, char **set);
 #endif

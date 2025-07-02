@@ -20,7 +20,4 @@ void		handle_signal(int sig);
 char		*process_command(char *line, t_data *data);
 t_data		*init_data(char **av, char **env);
 
-void		ft_free_data(t_data *data);
-void		ft_free_env(t_env *env);
-
 #endif
