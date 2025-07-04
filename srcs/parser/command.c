@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/01 20:27:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:11:26 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ char	*process_command(char *line, t_data *data)
 	if (!cmd)
 		return (line);
 	execute_cmd_tree(cmd, data, -1, -1);
+	ft_free_command(cmd);
 	return (line);
 }

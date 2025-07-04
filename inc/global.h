@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/03 20:51:39 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:31:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GLOBAL_H
 
 # include <stdbool.h>
+#include <stdio.h>
 
 extern int	g_exit_status;
 
@@ -32,6 +33,7 @@ typedef struct s_data
 	t_env			*env;
 	t_env			*local_env;
 	bool			end;
+	int				status;
 }	t_data;
 
 typedef struct s_exp
