@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:14 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:11:26 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:57:56 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@
 #include "../../inc/free.h"
 
 // Si es un heredoc (<<) devolver un line diferente
-
-void	update(int exit)
-{
-	g_exit_status = exit;
-}
-
-void	print_token(t_token *t)
-{
-	printf("TOKEN:\n");
-	while (t)
-	{
-		printf("%s\n", t->value);
-		t = t->next;
-	}
-	printf("\n");
-}
 
 char	*process_command(char *line, t_data *data)
 {
@@ -46,7 +30,8 @@ char	*process_command(char *line, t_data *data)
 	cmd = build_cmd_tree(token);
 	if (!cmd)
 		return (line);
-	execute_cmd_tree(cmd, data, -1, -1);
+	data->line = line;
+	g_exit_status = execute_cmd_tree(cmd, data, -1, -1);
 	ft_free_command(cmd);
 	return (line);
 }

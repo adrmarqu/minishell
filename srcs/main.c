@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/05 19:42:57 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:52:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	read_prompt(t_data *data)
 			return ;
 		if (!ft_isempty(line))
 		{
-			g_exit_status = 0;
 			if (is_closed(line))
 				line = process_command(line, data);
 		}

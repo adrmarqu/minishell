@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:54:17 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/24 12:42:49 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:45:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,10 @@ void	error_memory(const char *url)
 {
 	fd_printf(2, "minishell: memory leak in %s\n", url);
 	g_exit_status = 1;
+}
+
+void	error_option(const char *built, char option)
+{
+	fd_printf(2, "minishell: %s: -%c: invalid option\n", built, option);
+	g_exit_status = 2;
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:19 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:32:02 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:09:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static bool	isoption(t_token *option)
 	return (true);
 }
 
-int blt_echo(t_data *data, t_token *cmd)
+int	blt_echo(t_data *data, t_token *cmd)
 {
 	bool	option;
 
@@ -49,6 +49,6 @@ int blt_echo(t_data *data, t_token *cmd)
 	}
 	if (!option)
 		fd_printf(1, "\n");
-	data->status = 0;
-    return (0);
+	(void)data;
+	return (0);
 }
