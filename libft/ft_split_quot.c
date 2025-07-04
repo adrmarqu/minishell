@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:23:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/13 21:20:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:05:42 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,39 +55,47 @@ static char	*ft_make_str(const char *str, int first, int last)
 	return (r);
 }
 
+static void	set_quots(char c, bool *simple, bool *duple)
+{
+	if (c == '\'' && !*duple)
+		*simple = !*simple;
+	else if (c == '\"' && !*simple)
+		*duple = !*duple;
+}
+
+static void	init(int (*idx)[3], bool (*q)[2])
+{
+	(*idx)[0] = -1;
+	(*idx)[1] = 0;
+	(*idx)[2] = -1;
+	(*q)[0] = false;
+	(*q)[1] = false;
+}
+
 char	**ft_split_quot(char const *s, char c)
 {
-	int		i;
-	size_t	j;
-	int		start;
 	char	**r;
-	bool	simple;
-	bool	duple;
+	int		idx[3];
+	bool	quots[2];
 
 	r = malloc((ft_count_words(s, c) + 1) * sizeof(char *));
 	if (!r || !s)
 		return (0);
-	simple = false;
-	duple = false;
-	i = -1;
-	j = 0;
-	start = -1;
-	while (++i <= (int)ft_strlen(s))
+	init(&idx, &quots);
+	while (++idx[0] <= (int)ft_strlen(s))
 	{
-		if (s[i] == '\'' && !duple)
-			simple = !simple;
-		else if (s[i] == '\"' && !simple)
-			duple = !duple;
-		if ((s[i] != c || simple || duple) && start < 0)
-			start = i;
-		else if (((s[i] == c && !simple && !duple) || (size_t)i == ft_strlen(s)) && start >= 0)
+		set_quots(s[idx[0]], &quots[0], &quots[1]);
+		if ((s[idx[0]] != c || quots[0] || quots[1]) && idx[2] < 0)
+			idx[2] = idx[0];
+		else if (((s[idx[0]] == c && !quots[0] && !quots[1])
+				|| idx[0] == (int)ft_strlen(s)) && idx[2] >= 0)
 		{
-			r[j] = ft_make_str(s, start, i);
-			if (!r[j++])
+			r[idx[1]] = ft_make_str(s, idx[2], idx[0]);
+			if (!r[idx[1]++])
 				return (ft_free_split(r), NULL);
-			start = -1;
+			idx[2] = -1;
 		}
 	}
-	r[j] = NULL;
+	r[idx[1]] = NULL;
 	return (r);
 }

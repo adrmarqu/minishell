@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:57:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:48:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define GLOBAL_H
 
 # include <stdbool.h>
-#include <stdio.h>
 
 extern int	g_exit_status;
 

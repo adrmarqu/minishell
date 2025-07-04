@@ -6,14 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:52:56 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:12:26 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 20:07:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 #include "../../libft/libft.h"
 #include <sys/wait.h>
-
+/*
 int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 {
 	int		pipefd[2];
@@ -51,7 +51,7 @@ int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 	waitpid(pid_right, &status, 0);
 	return (status);
 }
-
+*/
 static int	execute_operator(t_cmd *cmd, t_data *data)
 {
 	int	status;

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:19 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 18:16:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:50:41 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static bool	isoption(t_token *cmd)
 	return (false);
 }
 
-int blt_pwd(t_data *data, t_token *cmd)
+int	blt_pwd(t_data *data, t_token *cmd)
 {
 	char	*cwd;
-	//t_env	*env;
 
 	cmd = cmd->next;
 	if (isoption(cmd))
@@ -41,13 +40,8 @@ int blt_pwd(t_data *data, t_token *cmd)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (2);
-	//{
-		//fd_printf(1, "pwd: error retrieving current directory: "
-		//		"getcwd: cannot access parent directories: No such "
-		//		"file or directory\n");
-	//}
 	(void)data;
 	fd_printf(1, "%s\n", cwd);
 	free(cwd);
-    return (0);
+	return (0);
 }

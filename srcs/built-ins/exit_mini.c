@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:06 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:44:22 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:50:02 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	convert_num(long long int num)
 	return (num % 256);
 }
 
-int blt_exit(t_data *data, t_token *cmd)
+int	blt_exit(t_data *data, t_token *cmd)
 {
 	long long int	num;
 	bool			error;
@@ -55,5 +55,5 @@ int blt_exit(t_data *data, t_token *cmd)
 		return (error_exit(NULL, 1), 1);
 	}
 	status = convert_num(num);
-    return (status);
+	return (status);
 }
