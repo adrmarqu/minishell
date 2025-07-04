@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:52:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:45:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 18:37:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,3 +16,4 @@ void	error_token(const char *err);
 void	error_close(int error);
 void	error_memory(const char *url);
 void	error_option(const char *built, char option);
+void	error_exit(const char *s, int type);
