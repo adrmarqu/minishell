@@ -6,7 +6,7 @@
 #    By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/15 17:00:31 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/06/15 17:46:02 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/07/04 19:07:28 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c ft_isspace.c\
 ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c print_split.c\
 ft_free.c fd_printf.c flags.c ft_num.c init_flags.c putchar.c put_flags.c\
 put_number.c ft_strndup.c ft_isempty.c ft_split_quot.c splitlen.c\
-ft_join_split.c ft_strstr.c ft_clean_quotes.c
+ft_join_split.c ft_strstr.c ft_clean_quotes.c ft_atoll.c
 
 OBJ = $(SRC:.c=.o)
 

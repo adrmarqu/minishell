@@ -1,34 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:26:30 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:14:44 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/04 19:43:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdbool.h>
+#include <limits.h>
 
-int	ft_atoi(const char *str)
+static bool	check_size(__int128 nbr)
 {
-	int	r;
-	int	sign;
+	if (nbr > LLONG_MAX || nbr < LLONG_MIN)
+		return (true);
+	return (false);
+}
 
-	r = 0;
+int	ft_atoll(const char *str, long long int *num)
+{
+	__int128	res;
+	short		sign;
+
+	res = 0;
 	sign = 1;
 	while (ft_isspace(*str))
 		str++;
 	if (*str == '-')
 		sign = -1;
-	if (*str == '-' || *str == '+')
+	while (*str == '-' || *str == '+')
 		str++;
-	while (*str && ft_isdigit(*str))
+	while (*str)
 	{
-		r = r * 10 + (*str - '0');
+		if (!ft_isdigit(*str))
+			return (1);
+		res = res * 10 + (*str - '0');
 		str++;
 	}
-	return (r * sign);
+	res = res * sign;
+	if (check_size(res))
+		return (1);
+	*num = res;
+	return (0);
 }
