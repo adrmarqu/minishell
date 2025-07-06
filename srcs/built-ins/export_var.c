@@ -13,7 +13,7 @@
 #include "../../inc/built.h"
 #include "../../libft/libft.h"
 
-static char	*get_var_export(char *s)
+char	*get_var_export(char *s)
 {
 	size_t	len;
 
@@ -23,7 +23,7 @@ static char	*get_var_export(char *s)
 	return (ft_substr(s, 0, len));
 }
 
-static char	*get_value_export(char *s, bool *error)
+char	*get_value_export(char *s, bool *error)
 {
 	size_t	start;
 	size_t	end;
@@ -46,7 +46,7 @@ static char	*get_value_export(char *s, bool *error)
 	return (value);
 }
 
-static bool	is_equal(char *s)
+bool	is_equal(char *s)
 {
 	while (*s)
 	{
@@ -76,19 +76,19 @@ static bool	set_data_var(t_env **env, char *s)
 	return (true);
 }
 
-bool	export_var(t_data *data, char *s)
+int	export_var(t_data *data, char *s)
 {
 	t_env	*new_var;
 	t_env	*curr;
 
 	new_var = malloc(sizeof(t_env));
 	if (!new_var)
-		return (false);
+		return (1);
 	if (!set_data_var(&new_var, s))
-		return (free(new_var), false);
+		return (free(new_var), 1);
 	curr = data->env;
 	while (curr && curr->next)
 		curr = curr->next;
 	curr->next = new_var;
-	return (true);
+	return (0);
 }

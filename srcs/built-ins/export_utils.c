@@ -44,4 +44,19 @@ bool	is_append(char *s)
 	return (false);
 }
 
+bool it_exist(t_data *data, char *s)
+{
+	t_env *env;
+	size_t len;
 
+	while (s[len] && s[len] != '=')
+		len++;
+	env = data->env;
+	while (env)
+	{
+		if (!ft_strncmp(env->var, s, len))
+			return (true);
+			env = env->next;
+	}
+	return (false);
+}

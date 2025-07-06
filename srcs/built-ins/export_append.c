@@ -12,9 +12,9 @@
 
 #include "../../inc/built.h"
 
-bool	export_append(t_data *data, char *s)
+int	export_append(t_data *data, char *s)
 {
 	(void)data;
 	(void)s;
-	return (true);
+	return (0);
 }

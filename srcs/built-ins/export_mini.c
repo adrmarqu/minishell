@@ -52,9 +52,11 @@ static bool	check_export(char *s)
 
 bool	export_input(t_data *data, char *s)
 {
+	if (!it_exist(data, s))
+		return (export_var(data, s));
 	if (is_append(s))
 		return (export_append(data, s));
-	return (export_var(data, s));
+	return (export_modify(data, s));
 }
 
 int	blt_export(t_data *data, t_token *cmd)

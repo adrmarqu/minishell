@@ -25,8 +25,13 @@ int		blt_env(t_data *data, t_token *cmd);
 
 t_env	*get_smaller(t_env *env, t_env *last);
 bool	is_append(char *s);
+bool it_exist(t_data *data, char *s);
+char	*get_var_export(char *s);
+char	*get_value_export(char *s, bool *error);
+bool    is_equal(char *s);
 
-bool	export_var(t_data *data, char *s);
-bool	export_append(t_data *data, char *s);
+int	export_var(t_data *data, char *s);
+int	export_append(t_data *data, char *s);
+int	export_modify(t_data *data, char *s);
 
 #endif
