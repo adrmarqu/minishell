@@ -6,7 +6,7 @@
 /*   By: adrmarqu <adrmarqu@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:27:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:28:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/06 16:46:56 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		ft_tolower(int c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strrncmp(const char *s1, const char *s2, size_t n);
 
