@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/06 17:59:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:20:30 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ static void	print_export(t_env *env)
 		fd_printf(1, "declare -x %s", smallest->var);
 		if (smallest->equal)
 		{
-			fd_printf(1, "=");
+			write(1, "=", 1);
 			if (smallest->value)
-				fd_printf(1, "%s", smallest->value);
-			else
-				fd_printf(1, "\"\"");
+				fd_printf(1, "\"%s\"", smallest->value);
 		}
 		write(1, "\n", 1);
 	}

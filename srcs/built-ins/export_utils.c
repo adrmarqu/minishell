@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:07:57 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/06 17:50:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:22:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,27 @@ bool	is_append(char *s)
 	return (false);
 }
 
-bool it_exist(t_data *data, char *s)
+bool	it_exist(t_data *data, char *s)
 {
-	t_env *env;
-	size_t len;
+	t_env	*env;
+	size_t	len;
+	char	prev;
 
+	prev = '0';
+	len = 0;
 	while (s[len] && s[len] != '=')
+	{
+		prev = s[len];
 		len++;
+	}
+	if (s[len] && s[len] == '=' && prev == '+')
+		len--;
 	env = data->env;
 	while (env)
 	{
 		if (!ft_strncmp(env->var, s, len))
 			return (true);
-			env = env->next;
+		env = env->next;
 	}
 	return (false);
 }

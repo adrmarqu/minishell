@@ -1,37 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_modify.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/10 18:54:47 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/07/10 19:22:19 by adrmarqu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/built.h"
+#include "../../inc/print.h"
 #include "../../libft/libft.h"
 
-static int change_data(t_env **env, char *value)
+static int	modify_data(char **val, bool *equal, char *str)
 {
-    
-    return (0);
+	char	*value;
+	bool	error;
+
+	if (!is_equal(str))
+		return (0);
+	*equal = true;
+	error = false;
+	value = get_value_export(str, &error);
+	if (error)
+		return (error_memory("export_modify/modify_data()"), 1);
+	free(*val);
+	*val = value;
+	return (0);
 }
 
-int export_modify(t_data *data, char *s)
+int	export_modify(t_data *data, char *s)
 {
-    t_env *env;
-    char *var;
-    char *value;
-    bool error;
+	t_env	*env;
+	char	*var;
+	size_t	len;
 
-    error = false;
-    var = get_var_export(s);
-    if (!var)
-        return (1);
-    value = get_value_export(s, &error);
-    if (error)
-        return (free(var), 1);
-    env = data->env;
-    while (env)
-    {
-        if (!ft_strcmp(env->var, var))
-        {
-            free(var);
-            free(env->value);
-            env->value = value;
-            return (0);
-        }
-        env = env->next;
-    }
-    return (free(var), 0);
+	env = data->env;
+	var = get_var_export(s);
+	if (!var)
+		return (error_memory("export_modify/export_modify()"), 1);
+	len = ft_strlen(var);
+	while (env)
+	{
+		if (!ft_strncmp(env->var, var, len))
+			return (free(var), modify_data(&env->value, &env->equal, s), 0);
+		env = env->next;
+	}
+	free(var);
+	return (1);
 }
