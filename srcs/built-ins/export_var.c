@@ -16,10 +16,17 @@
 char	*get_var_export(char *s)
 {
 	size_t	len;
+	char prev;
 
+	prev = '0';
 	len = 0;
 	while (s[len] && s[len] != '=')
+	{
+		prev = s[len];
 		len++;
+	}
+	if (prev == '+')
+		len--;
 	return (ft_substr(s, 0, len));
 }
 
