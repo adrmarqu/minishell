@@ -49,6 +49,8 @@ static t_env	*set_env_var(t_env **prev, char *var, char *value, bool equal)
 	if (!env->value)
 		return (free(env), free(env->var), NULL);
 	env->equal = equal;
+	env->deleted = false;
+	env->hidden = false;
 	env->next = NULL;
 	if (prev)
 		(*prev)->next = env;
@@ -122,14 +124,9 @@ t_data	*init_data(char **av, char **env)
 		return (NULL);
 	ret->shlvl = get_shlvl();
 	ret->program_name = av[0];
-	ret->env = init_env(env);
-	ret->local_env = malloc(sizeof(t_env));
-	ret->local_env->var = NULL;
-	ret->local_env->value = NULL;
-	ret->local_env->equal = false;
-	ret->local_env->next = NULL;
 	ret->end = false;
-	if (!ret->env || !ret->local_env)
+	ret->env = init_env(env);
+	if (!ret->env)
 		return (NULL);
 	return (ret);
 }

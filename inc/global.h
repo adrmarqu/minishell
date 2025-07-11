@@ -22,6 +22,8 @@ typedef struct s_env
 	char			*var;
 	char			*value;
 	bool			equal;
+	bool			deleted;
+	bool			hidden;
 	struct s_env	*next;
 }	t_env;
 
@@ -30,7 +32,6 @@ typedef struct s_data
 	int				shlvl;
 	char			*program_name;
 	t_env			*env;
-	t_env			*local_env;
 	bool			end;
 	char			*line;
 }	t_data;
