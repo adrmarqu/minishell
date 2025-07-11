@@ -21,17 +21,37 @@ static int	modify_data(char **val, bool *equal, char *str)
 
 	if (!is_equal(str))
 		return (0);
-	*equal = true;
 	error = false;
 	value = get_value_export(str, &error);
 	if (error)
 		return (error_memory("export_modify/modify_data()"), 1);
 	free(*val);
 	*val = value;
+	*equal = true;
 	return (0);
 }
 
-int	export_modify(t_data *data, char *s)
+static int add_data(char **val, bool *equal, char *str)
+{
+	char *value;
+	char *new_value;
+	bool error;
+
+	error = false;
+	value = get_value_export(str, &error);
+	if (error)
+		return (error_memory("export_modify/add_data()"), 1);
+	new_value = ft_strjoin(*val, value);
+	free(value);
+	if (!new_value)
+		return (error_memory("export_modify/add_data()"), 1);
+	free(*val);
+	*val = new_value;
+	*equal = true;
+	return (0);
+}
+
+int	export_modify(t_data *data, char *s, bool append)
 {
 	t_env	*env;
 	char	*var;
@@ -45,9 +65,14 @@ int	export_modify(t_data *data, char *s)
 	while (env)
 	{
 		if (!ft_strncmp(env->var, var, len))
-			return (free(var), modify_data(&env->value, &env->equal, s), 0);
+		{
+			free(var);
+			if (!append)
+				return (modify_data(&env->value, &env->equal, s));
+			else
+				return (add_data(&env->value, &env->equal, s));
+		}
 		env = env->next;
 	}
-	free(var);
-	return (1);
+	return (free(var), 1);
 }

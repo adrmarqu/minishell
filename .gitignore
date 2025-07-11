@@ -3,4 +3,5 @@
 *.a
 *.txt
 *.swp
+*.out
 minishell

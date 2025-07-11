@@ -31,7 +31,6 @@ char	*get_value_export(char *s, bool *error);
 bool    is_equal(char *s);
 
 int	export_var(t_data *data, char *s);
-int	export_append(t_data *data, char *s);
-int	export_modify(t_data *data, char *s);
+int	export_modify(t_data *data, char *s, bool append);
 
 #endif
