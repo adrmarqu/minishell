@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:06 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:50:02 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:36:38 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	blt_exit(t_data *data, t_token *cmd)
 	int				status;
 
 	cmd = cmd->next;
-	data->end = true;
 	fd_printf(1, "exit\n");
+	data->end = true;
 	if (!cmd)
 		return (g_exit_status);
 	error = false;

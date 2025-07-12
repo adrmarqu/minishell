@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:52:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:39:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,15 @@ static void	read_prompt(t_data *data)
 
 int	main(int ac, char **av, char **env)
 {
-	t_data	*data;
+	t_data	data;
 
 	if (ac != 1)
 		return (printf("Error: minishell without arguments"), 1);
-	data = init_data(av, env);
-	if (!data)
+	if (init_data(av, env, &data))
 		return (1);
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
-	read_prompt(data);
-	ft_free_data(data);
+	read_prompt(&data);
+	ft_free_data(&data);
 	return (g_exit_status);
 }

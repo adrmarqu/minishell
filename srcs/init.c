@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/24 12:13:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/12 19:40:48 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ static void	*init_env(char **envp)
 	return ((void *)first);
 }
 
-t_data	*init_data(char **av, char **env)
+t_data	*init_data(char **av, char **env, t_data *data)
 {
 	t_data	*ret;
 
@@ -125,6 +125,7 @@ t_data	*init_data(char **av, char **env)
 	ret->shlvl = get_shlvl();
 	ret->program_name = av[0];
 	ret->end = false;
+	ret->local_env = NULL;
 	ret->env = init_env(env);
 	if (!ret->env)
 		return (NULL);
