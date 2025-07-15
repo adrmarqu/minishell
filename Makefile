@@ -6,7 +6,7 @@
 #    By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 13:59:30 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/07/15 17:42:03 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/07/15 18:06:30 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,14 +43,14 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ) $(READLINE) $(LIBFT) -o $(NAME)
 
-$(OBJ_D)%.o: $(SRC_D)%.c | $(OBJ_D) $(DEP_D)
-	$(CC) $(CFLAGS) -MMD -c $< -o $@
+$(OBJ_D)%.o: $(SRC_D)%.c Makefile | $(OBJ_D) $(DEP_D)
+	$(CC) $(CFLAGS) -MMD -MF $(DEP_D)$*.d -c $< -o $@
 
-$(OBJ_D)%.o: $(BLT_D)%.c | $(OBJ_D) $(DEP_D)
-	$(CC) $(CFLAGS) -MMD -c $< -o $@
+$(OBJ_D)%.o: $(BLT_D)%.c Makefile | $(OBJ_D) $(DEP_D)
+	$(CC) $(CFLAGS) -MMD -MF $(DEP_D)$*.d -c $< -o $@
 
-$(OBJ_D)%.o: $(PAR_D)%.c | $(OBJ_D) $(DEP_D)
-	$(CC) $(CFLAGS) -MMD -c $< -o $@
+$(OBJ_D)%.o: $(PAR_D)%.c Makefile | $(OBJ_D) $(DEP_D)
+	$(CC) $(CFLAGS) -MMD -MF $(DEP_D)$*.d -c $< -o $@
 
 $(LIBFT):
 	make -C libft --no-print-directory
