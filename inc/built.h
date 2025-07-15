@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:47:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/06 17:19:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:49:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int		blt_env(t_data *data, t_token *cmd);
 
 t_env	*get_smaller(t_env *env, t_env *last);
 bool	is_append(char *s);
-bool it_exist(t_data *data, char *s);
-char	*get_var_export(char *s);
-char	*get_value_export(char *s, bool *error);
+bool	it_exist(t_data *data, char *s);
+char	*get_var_env(char *s);
+char	*get_value_env(char *s, bool *error);
 bool    is_equal(char *s);
 
-int	export_var(t_data *data, char *s);
-int	export_modify(t_data *data, char *s, bool append);
+int		export_var(t_data *data, char *s);
+int		export_modify(t_data *data, char *s, bool append);
 
 #endif

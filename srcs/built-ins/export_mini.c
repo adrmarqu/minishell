@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/10 19:20:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:45:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,16 @@ static void	print_export(t_env *env)
 
 static bool	check_export(char *s)
 {
-	if (!ft_isalpha(*s) || *s != '_')
-		return (false);
-	while (*s && *s != '=')
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(s[i]) && s[i] != '_')
+		return (error_invalid(s), false);
+	while (s[i] && s[i] != '=')
 	{
-		if (!ft_isalnum(*s) || *s != '_')
-			return (false);
-		s++;
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+			return (error_invalid(s), false);
+		i++;
 	}
 	return (true);
 }
@@ -63,11 +66,16 @@ int	blt_export(t_data *data, t_token *cmd)
 	if (!cmd)
 		return (print_export(data->env), 0);
 	if (cmd->value[0] == '-' && cmd->value[1])
-		return (error_option("export", cmd->value[1]), 2);
+	{
+		if (cmd->value[2])
+			return (error_option("export", cmd->value[1]), 2);
+		else if (cmd->value[1] == '-' && !cmd->value[2])
+			cmd = cmd->next;
+	}
 	status = 0;
 	while (cmd)
 	{
-		if (!check_export(cmd->value) && !export_input(data, cmd->value))
+		if (!check_export(cmd->value) || !export_input(data, cmd->value))
 			status = 1;
 		cmd = cmd->next;
 	}

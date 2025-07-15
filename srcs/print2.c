@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   print2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/19 12:36:51 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:14:19 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/07/15 17:39:03 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/07/15 17:41:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../libft/libft.h"
+#include "../inc/global.h"
 
-# include "global.h"
-
-void		*init_shell(char **env);
-void		handle_signal(int sig);
-char		*process_command(char *line, t_data *data);
-t_data		init_data(char **env);
-
-#endif
+void	error_invalid(const char *s)
+{
+	fd_printf(2, "minishell: export: `%s': not a valid identifier\n", s);
+	g_exit_status = 1;
+}

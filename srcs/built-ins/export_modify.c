@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:54:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/10 19:22:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:58:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	modify_data(char **val, bool *equal, char *str)
 	if (!is_equal(str))
 		return (0);
 	error = false;
-	value = get_value_export(str, &error);
+	value = get_value_env(str, &error);
 	if (error)
 		return (error_memory("export_modify/modify_data()"), 1);
 	free(*val);
@@ -38,7 +38,7 @@ static int add_data(char **val, bool *equal, char *str)
 	bool error;
 
 	error = false;
-	value = get_value_export(str, &error);
+	value = get_value_env(str, &error);
 	if (error)
 		return (error_memory("export_modify/add_data()"), 1);
 	new_value = ft_strjoin(*val, value);
@@ -58,7 +58,7 @@ int	export_modify(t_data *data, char *s, bool append)
 	size_t	len;
 
 	env = data->env;
-	var = get_var_export(s);
+	var = get_var_env(s);
 	if (!var)
 		return (error_memory("export_modify/export_modify()"), 1);
 	len = ft_strlen(var);

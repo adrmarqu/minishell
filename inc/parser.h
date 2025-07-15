@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:48:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:27:26 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	expand(t_token **tokens, t_data *data);
 
 int		get_max_depth(t_token *token);
 
-char	*get_var(char *var, t_env *env, t_env *local);
+char	*get_var(char *var, t_env *env);
 char	*find_wildcard_token(char *str);
 
 bool	check_syntaxis(t_token *token);

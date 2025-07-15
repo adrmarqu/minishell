@@ -6,14 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 16:24:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 17:35:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:27:53 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/global.h"
 #include "../../libft/libft.h"
 
-char	*get_var(char *var, t_env *env, t_env *local)
+char	*get_var(char *var, t_env *env)
 {
 	size_t	len;
 
@@ -28,12 +28,6 @@ char	*get_var(char *var, t_env *env, t_env *local)
 		if (len == ft_strlen(env->var) && !ft_strncmp(var, env->var, len))
 			return (ft_strdup(env->value));
 		env = env->next;
-	}
-	while (local && local->var)
-	{
-		if (len == ft_strlen(local->var) && !ft_strncmp(var, local->var, len))
-			return (ft_strdup(local->value));
-		local = local->next;
 	}
 	return (ft_strdup(""));
 }

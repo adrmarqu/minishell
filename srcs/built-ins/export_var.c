@@ -6,14 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:19:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/10 19:16:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:58:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/built.h"
 #include "../../libft/libft.h"
 
-char	*get_var_export(char *s)
+char	*get_var_env(char *s)
 {
 	size_t	len;
 	char prev;
@@ -30,7 +30,7 @@ char	*get_var_export(char *s)
 	return (ft_substr(s, 0, len));
 }
 
-char	*get_value_export(char *s, bool *error)
+char	*get_value_env(char *s, bool *error)
 {
 	size_t	start;
 	size_t	end;
@@ -70,11 +70,11 @@ static bool	set_data_var(t_env **env, char *s)
 	bool	error;
 
 	error = false;
-	tmp = get_var_export(s);
+	tmp = get_var_env(s);
 	if (!tmp)
 		return (false);
 	(*env)->var = tmp;
-	tmp = get_value_export(s, &error);
+	tmp = get_value_env(s, &error);
 	if (error)
 		return (free((*env)->var), false);
 	(*env)->value = tmp;

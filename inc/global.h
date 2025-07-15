@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/12 19:31:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:09:30 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,12 @@ typedef struct s_env
 	char			*var;
 	char			*value;
 	bool			equal;
-	bool			deleted;
-	bool			hidden;
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_data
 {
-	int				shlvl;
-	char			*program_name;
 	t_env			*env;
-	t_env			*local_env;
 	bool			end;
 	char			*line;
 }	t_data;

@@ -6,14 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:52:56 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/06 15:57:33 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:23:37 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
 #include "../../libft/libft.h"
 #include <sys/wait.h>
-
+/*
 int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 {
 	int		pipefd[2];
@@ -51,7 +51,7 @@ int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 	waitpid(pid_right, &status, 0);
 	return (status);
 }
-
+*/
 static int	execute_operator(t_cmd *cmd, t_data *data)
 {
 	int	status;
@@ -66,9 +66,10 @@ int	execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output)
 {
 	if (!cmd)
 		return (1);
-	if (cmd->op == PIPE)
-		return (execute_pipe(cmd, data, input, output));
-	else if (cmd->op == OR || cmd->op == AND)
+	//if (cmd->op == PIPE)
+	//	return (execute_pipe(cmd, data, input, output));
+	//else 
+	if (cmd->op == OR || cmd->op == AND)
 		return (execute_operator(cmd, data));
 	if (!expand(&cmd->command, data))
 		return (1);

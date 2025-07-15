@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/12 19:40:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:22:07 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static t_env	*set_env_var(t_env **prev, char *var, char *value, bool equal)
 	if (!env->value)
 		return (free(env), free(env->var), NULL);
 	env->equal = equal;
-	env->deleted = false;
-	env->hidden = false;
 	env->next = NULL;
 	if (prev)
 		(*prev)->next = env;
@@ -115,19 +113,34 @@ static void	*init_env(char **envp)
 	return ((void *)first);
 }
 
-t_data	*init_data(char **av, char **env, t_data *data)
+void	print_env(t_env *env)
 {
-	t_data	*ret;
+	t_env	*curr;
 
-	ret = malloc(sizeof(t_data));
-	if (!ret)
-		return (NULL);
-	ret->shlvl = get_shlvl();
-	ret->program_name = av[0];
-	ret->end = false;
-	ret->local_env = NULL;
-	ret->env = init_env(env);
-	if (!ret->env)
-		return (NULL);
+	if (!env)
+		return ;
+	curr = env;
+	while (curr)
+	{
+		printf("%s", curr->var);
+		if (curr->equal)
+			printf("=");
+		if (curr->value)
+			printf("%s", curr->value);
+		printf("\n");
+		curr = curr->next;
+	}
+}
+
+t_data	init_data(char **env)
+{
+	t_data	ret;
+
+	ret.end = false;
+	ret.env = init_env(env);
+	if (!ret.env)
+		ret.end = true;
+	//print_env(ret.env);
+	printf("%p\n", ret.env);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:42 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/12 19:33:48 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:25:07 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 static int	execute_builtin(t_data *data, t_token *cmd)
 {
-	//const int	len = ft_strlen(cmd->value);
-
 	if (!ft_strcmp(cmd->value, "cd"))
 		return (blt_cd(data, cmd));
 	else if (!ft_strcmp(cmd->value, "exit"))

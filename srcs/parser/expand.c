@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 14:06:43 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/24 13:46:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:27:02 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*expand_var(char *str, int *idx, t_data *data)
 	split = split_var(str, *idx + 1);
 	if (!split)
 		return (NULL);
-	tmp = get_var(split[1], data->env, data->local_env);
+	tmp = get_var(split[1], data->env);
 	free(split[1]);
 	split[1] = tmp;
 	*idx += ft_strlen(split[1]);

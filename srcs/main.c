@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/12 19:39:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:20:26 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,6 @@
 	\ ->	Cuando es interactivo no hace nada, en programas como cat 
 			o vim termina el proceso: 131
 
-	SIG_IGN = ignorar
-	SIG_DFL = default
- 
 */
 
 int	g_exit_status = 0;
@@ -78,13 +75,15 @@ int	main(int ac, char **av, char **env)
 {
 	t_data	data;
 
+	(void)av;
 	if (ac != 1)
-		return (printf("Error: minishell without arguments"), 1);
-	if (init_data(av, env, &data))
-		return (1);
+		return (fd_printf(2, "Error: minishell without arguments"), 1);
+	data = init_data(env);
+	if (data.end)
+		return (fd_printf(2, "Error: failed to iniciate minishell"), 1);
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	read_prompt(&data);
-	ft_free_data(&data);
+	ft_free_env(data.env);
 	return (g_exit_status);
 }
