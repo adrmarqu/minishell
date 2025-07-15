@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print2.c                                           :+:      :+:    :+:   */
+/*   cd_expand.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 17:39:03 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 20:55:35 by adrmarqu         ###   ########.fr       */
+/*   Created: 2025/07/15 19:08:00 by adrmarqu          #+#    #+#             */
+/*   Updated: 2025/07/15 19:35:37 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
-#include "../inc/global.h"
+#include "../../inc/built.h"
 
-void	error_invalid(const char *s)
+int	cd_home(t_data *data)
 {
-	fd_printf(2, "minishell: export: `%s': not a valid identifier\n", s);
-	g_exit_status = 1;
+	(void)data;
+	return (0);
 }
 
-void	error_chdir(const char *s, const char *err)
+int	cd_expand_home(t_data *data, char *path)
 {
-	fd_printf(2, "minishell: cd: %s: %s\n", s, err);
-	g_exit_status = 1;
+	(void)data;
+	(void)path;
+	return (0);
+}
+
+int	cd_old(t_data *data)
+{
+	(void)data;
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 13:59:30 by adrmarqu          #+#    #+#              #
-#    Updated: 2025/07/15 18:06:30 by adrmarqu         ###   ########.fr        #
+#    Updated: 2025/07/15 19:34:58 by adrmarqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC = main.c utils.c init.c command.c split_tokens.c token.c ft_free_parser.c \
 	  split_wildcard.c check_token.c build_cmd.c create.c execute_tree.c execute.c \
 	  cd_mini.c env_mini.c export_mini.c unset_mini.c echo_mini.c exit_mini.c \
 	  pwd_mini.c execute_utils.c export_var.c export_utils.c export_modify.c \
-	  print2.c
+	  print2.c cd_expand.c
 
 SRC_D = ./srcs/
 BLT_D = ./srcs/built-ins/

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:22:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 20:55:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,25 +113,6 @@ static void	*init_env(char **envp)
 	return ((void *)first);
 }
 
-void	print_env(t_env *env)
-{
-	t_env	*curr;
-
-	if (!env)
-		return ;
-	curr = env;
-	while (curr)
-	{
-		printf("%s", curr->var);
-		if (curr->equal)
-			printf("=");
-		if (curr->value)
-			printf("%s", curr->value);
-		printf("\n");
-		curr = curr->next;
-	}
-}
-
 t_data	init_data(char **env)
 {
 	t_data	ret;
@@ -140,7 +121,5 @@ t_data	init_data(char **env)
 	ret.env = init_env(env);
 	if (!ret.env)
 		ret.end = true;
-	//print_env(ret.env);
-	printf("%p\n", ret.env);
 	return (ret);
 }

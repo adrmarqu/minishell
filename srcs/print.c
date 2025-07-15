@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:54:17 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/12 19:37:26 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:59:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	error_option(const char *built, char option)
 	g_exit_status = 2;
 }
 
-void	error_exit(const char *s, int type)
+void	error_exit(const char *built, const char *s, int type)
 {
 	if (type == 1)
-		fd_printf(2, "minishell: exit: too many arguments\n");
+		fd_printf(2, "minishell: %s: too many arguments\n", built);
 	else if (type == 2)
-		fd_printf(2, "minishell: exit: %s: numeric argument required\n", s);
+		fd_printf(2, "minishell: %s: %s: numeric argument required\n", built, s);
 	g_exit_status = type;
 }

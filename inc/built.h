@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:47:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:49:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/15 19:35:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 # define BUILT_H
 
 # include "global.h"
+
+typedef enum	e_type
+{
+	HOME,
+	EXP,
+	OLD,
+	ROUTE,
+	ERROR_ARG,
+	ERROR_OPT
+}	t_type;
 
 int		blt_cd(t_data *data, t_token *cmd);
 int		blt_exit(t_data *data, t_token *cmd);
@@ -32,5 +42,11 @@ bool    is_equal(char *s);
 
 int		export_var(t_data *data, char *s);
 int		export_modify(t_data *data, char *s, bool append);
+
+int		cd_home(t_data *data);
+int		cd_expand_home(t_data *data, char *path);
+int		cd_old(t_data *data);
+int		ft_chdir(t_data *data, char *path);
+
 
 #endif
