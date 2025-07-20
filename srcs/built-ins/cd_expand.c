@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 19:08:00 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/16 17:29:03 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 11:51:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../../inc/built.h"
+#include "../../inc/print.h"
 
 static char	*get_home_env(t_data *data)
 {
@@ -45,9 +46,22 @@ int	cd_home(t_data *data)
 
 int	cd_expand_home(t_data *data, char *path)
 {
-	(void)data;
-	(void)path;
-	return (0);
+	int		status;
+	char	*dir;
+
+	if (!path[1])
+		return (cd_home(data));
+	else if (path[1] && path[1] != '/')
+	{
+		fd_printf(2, "minishell: cd: %s: No such file or directory\n", path);
+		return (1);
+	}
+	dir = ft_strjoin(data->home, path + 1);
+	if (!dir)
+		return (error_memory("cd_expand/cd_expand_home()"), 1);
+	status = ft_chdir(data, dir);
+	free(dir);
+	return (status);
 }
 
 int	cd_old(t_data *data)
