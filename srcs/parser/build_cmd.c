@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:34:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/27 18:09:27 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 11:36:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ static t_token	*find_last_of(t_token *t, int lvl, t_token_type p)
 			depth++;
 		else if (t->type == CLOSE)
 			depth--;
-		if (p == t->type && depth == lvl)
-			last = t;
+		if (depth == lvl)
+		{
+			if (p == t->type)
+				last = t;
+			else if (t->type == AND && p == OR)
+				last = t;
+		}
 		t = t->next;
 	}
 	return (last);
@@ -50,7 +55,7 @@ static t_token	*find_last_of(t_token *t, int lvl, t_token_type p)
 
 static t_token	*get_root_type(t_token *input)
 {
-	const t_token_type	types[] = {OR, AND, PIPE, END};
+	const t_token_type	types[] = {OR, PIPE, END};
 	int					lvl;
 	int					max_lvl;
 	int					i;

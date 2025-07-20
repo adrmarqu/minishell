@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:09:30 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:10:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_data
 {
 	t_env			*env;
 	bool			end;
+	char			*home;
 	char			*line;
 }	t_data;
 

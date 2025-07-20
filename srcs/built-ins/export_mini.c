@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:45:25 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:26:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ static void	print_export(t_env *env)
 
 static bool	check_export(char *s)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!ft_isalpha(s[i]) && s[i] != '_')
 		return (error_invalid(s), false);
-	while (s[i] && s[i] != '=')
+	while (s[i])
 	{
+		if (s[i] == '=' || (s[i] == '+' && s[i + 1] && s[i + 1] == '='))
+			return (true);
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 			return (error_invalid(s), false);
 		i++;
