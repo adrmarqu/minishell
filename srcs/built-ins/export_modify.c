@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:54:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 13:15:04 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:49:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ static int	modify_data(char **val, bool *equal, char *str)
 	return (0);
 }
 
-static int add_data(char **val, bool *equal, char *str)
+static int	add_data(char **val, bool *equal, char *str)
 {
-	char *value;
-	char *new_value;
-	bool error;
+	char	*value;
+	char	*new_value;
+	bool	error;
 
 	error = false;
 	value = get_value_env(str, &error);

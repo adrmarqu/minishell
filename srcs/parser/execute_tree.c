@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:52:56 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 13:45:25 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:49:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 
 	if (pipe(pipefd) < 0)
 		return (perror("pipe"), 1);
-
 	execute_cmd_tree(cmd->left, data, input, pipefd[1]);
 	close(pipefd[1]);
-
 	execute_cmd_tree(cmd->right, data, pipefd[0], output);
 	close(pipefd[0]);
-
 	if (input != -1)
 		close(input);
 	if (output != -1)

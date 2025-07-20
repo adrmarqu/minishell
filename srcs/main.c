@@ -6,17 +6,14 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 12:45:50 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 14:06:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
 #include "../libft/libft.h"
-#include "../inc/global.h"
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/print.h"
@@ -59,13 +56,16 @@ static void	read_prompt(t_data *data)
 	{
 		line = readline("minishell> ");
 		if (!line)
+		{
+			fd_printf(1, "exit\n");
 			return ;
+		}
 		if (!ft_isempty(line))
 		{
 			if (is_closed(line))
 				line = process_command(line, data);
 		}
-		if (line[0])
+		if (line && line[0])
 			add_history(line);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 20:54:17 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 18:59:16 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:47:23 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	error_memory(const char *url)
 	g_exit_status = 1;
 }
 
-void	error_option(const char *built, char option)
+void	error_option(const char *blt, char option)
 {
-	fd_printf(2, "minishell: %s: -%c: invalid option\n", built, option);
+	fd_printf(2, "minishell: %s: -%c: invalid option\n", blt, option);
 	g_exit_status = 2;
 }
 
-void	error_exit(const char *built, const char *s, int type)
+void	error_exit(const char *blt, const char *s, int type)
 {
 	if (type == 1)
-		fd_printf(2, "minishell: %s: too many arguments\n", built);
+		fd_printf(2, "minishell: %s: too many arguments\n", blt);
 	else if (type == 2)
-		fd_printf(2, "minishell: %s: %s: numeric argument required\n", built, s);
+		fd_printf(2, "minishell: %s: %s: numeric argument required\n", blt, s);
 	g_exit_status = type;
 }

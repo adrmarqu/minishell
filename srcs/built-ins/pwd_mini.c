@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:19 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 13:15:47 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:48:44 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 int	update_pwd(t_data *data)
 {
-	//printf("PWD: %s\nOLD: %s\n", data->pwd, data->oldpwd);
 	modify_data_ext(data, "PWD", true, ft_strdup(data->pwd));
 	if (!data->oldpwd)
 		modify_data_ext(data, "OLDPWD", false, NULL);

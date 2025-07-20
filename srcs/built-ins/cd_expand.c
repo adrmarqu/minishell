@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 19:08:00 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 12:10:24 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:48:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*get_home_env(t_data *data)
 int	cd_home(t_data *data)
 {
 	char	*path;
-   
+
 	path = get_home_env(data);
 	if (!path)
 	{

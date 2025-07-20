@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 17:19:25 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:58:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:49:28 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 char	*get_var_env(char *s)
 {
 	size_t	len;
-	char prev;
+	char	prev;
 
 	prev = '0';
 	len = 0;

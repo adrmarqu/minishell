@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:12 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 12:47:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:48:19 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	update_internal_pwd(t_data *data)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		fd_printf(2, "cd: error retrieving current directory: getcwd: cannot" 
-				" access parent directories: No such file or directory\n");
+		fd_printf(2, "cd: error retrieving current directory: getcwd: cannot"
+			" access parent directories: No such file or directory\n");
 		cwd = ft_strjoin(data->pwd, "/.");
 		if (!cwd)
 			return (error_memory("cd_mini/internal_pwd/join()"), 1);

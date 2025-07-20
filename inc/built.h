@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:47:15 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 12:58:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:46:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "global.h"
 
-typedef enum	e_type
+typedef enum e_type
 {
 	HOME,
 	EXP,
@@ -37,7 +37,7 @@ bool	is_append(char *s);
 bool	it_exist(t_data *data, char *s);
 char	*get_var_env(char *s);
 char	*get_value_env(char *s, bool *error);
-bool    is_equal(char *s);
+bool	is_equal(char *s);
 
 int		export_var(t_data *data, char *s);
 int		export_modify(t_data *data, char *s, bool append);
