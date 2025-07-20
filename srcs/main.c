@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:20:26 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:45:50 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,6 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, handle_signal);
 	signal(SIGQUIT, SIG_IGN);
 	read_prompt(&data);
-	ft_free_env(data.env);
+	ft_free_data(&data);
 	return (g_exit_status);
 }

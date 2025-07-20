@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 19:08:00 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 11:51:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:10:24 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,4 @@ int	cd_expand_home(t_data *data, char *path)
 	status = ft_chdir(data, dir);
 	free(dir);
 	return (status);
-}
-
-int	cd_old(t_data *data)
-{
-	(void)data;
-	return (0);
 }

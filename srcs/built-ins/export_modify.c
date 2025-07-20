@@ -6,13 +6,34 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 18:54:47 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:58:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:15:04 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/built.h"
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
+
+int	modify_data_ext(t_data *data, const char *var, bool eq, char *val)
+{
+	t_env	*env;
+
+	if (!val)
+		return (1);
+	env = data->env;
+	while (env)
+	{
+		if (!ft_strcmp(env->var, var))
+		{
+			env->equal = eq;
+			free(env->value);
+			env->value = val;
+			return (0);
+		}
+		env = env->next;
+	}
+	return (1);
+}
 
 static int	modify_data(char **val, bool *equal, char *str)
 {

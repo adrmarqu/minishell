@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/05 19:20:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:56:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:45:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ void	ft_free_one_env(t_env **list, t_env *prev, t_env *curr)
 	free(curr->var);
 	free(curr->value);
 	free(curr);
+}
+
+void	ft_free_data(t_data *data)
+{
+	ft_free_env(data->env);
+	free(data->pwd);
+	free(data->oldpwd);
+	free(data->home);
 }

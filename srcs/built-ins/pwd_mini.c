@@ -6,13 +6,25 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:19 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/04 19:50:41 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 13:15:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/global.h"
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
+#include "../../inc/built.h"
+
+int	update_pwd(t_data *data)
+{
+	//printf("PWD: %s\nOLD: %s\n", data->pwd, data->oldpwd);
+	modify_data_ext(data, "PWD", true, ft_strdup(data->pwd));
+	if (!data->oldpwd)
+		modify_data_ext(data, "OLDPWD", false, NULL);
+	else
+		modify_data_ext(data, "OLDPWD", true, ft_strdup(data->oldpwd));
+	return (0);
+}
 
 static bool	isoption(t_token *cmd)
 {

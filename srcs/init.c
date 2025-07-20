@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/16 17:15:02 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:42:14 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ t_data	init_data(char **env)
 
 	ret.end = false;
 	ret.home = NULL;
+	ret.pwd = NULL;
+	ret.oldpwd = NULL;
 	ret.env = init_env(env);
 	if (!ret.env)
 	{

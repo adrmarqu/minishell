@@ -6,33 +6,54 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:12 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 20:54:06 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/07/20 12:47:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "../../inc/built.h"
 #include "../../inc/print.h"
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <errno.h>
+
+static int	update_internal_pwd(t_data *data)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		fd_printf(2, "cd: error retrieving current directory: getcwd: cannot" 
+				" access parent directories: No such file or directory\n");
+		cwd = ft_strjoin(data->pwd, "/.");
+		if (!cwd)
+			return (error_memory("cd_mini/internal_pwd/join()"), 1);
+	}
+	if (data->oldpwd)
+		free(data->oldpwd);
+	data->oldpwd = data->pwd;
+	data->pwd = ft_strdup(cwd);
+	free(cwd);
+	if (!data->pwd)
+		return (error_memory("cd_mini/internal_pwd/strdup()"), 1);
+	return (0);
+}
 
 int	ft_chdir(t_data *data, char *path)
 {
-	printf("PATH: %s\n", path);
 	chdir(path);
 	if (errno == ENOENT)
-		error_chdir(path, "No such file or directory");
+		return (error_chdir(path, "No such file or directory"), 1);
 	else if (errno == ENOTDIR)
-		error_chdir(path, "Not a directory");
+		return (error_chdir(path, "Not a directory"), 1);
 	else if (errno == EACCES)
-		error_chdir(path, "Permission denied");
+		return (error_chdir(path, "Permission denied"), 1);
 	else if (errno == ENAMETOOLONG)
-		error_chdir(path, "File name too long");
+		return (error_chdir(path, "File name too long"), 1);
 	else if (errno != 0)
-		error_chdir(path, "Unexpected error in chdir");
-	//update_pwd(data, path);
-	(void)data;
+		return (error_chdir(path, "Unexpected error in chdir"), 1);
+	if (update_internal_pwd(data))
+		return (1);
+	update_pwd(data);
 	return (0);
 }
 
@@ -49,8 +70,6 @@ static t_type	get_type_cd(t_token *cmd)
 		return (ERROR_ARG);
 	if (s[0] == '~')
 		return (EXP);
-	if (s[0] == '-')
-		return (OLD);
 	return (ROUTE);
 }
 
@@ -64,8 +83,6 @@ int	blt_cd(t_data *data, t_token *cmd)
 		return (cd_home(data));
 	else if (type == EXP)
 		return (cd_expand_home(data, cmd->value));
-	else if (type == OLD)
-		return (cd_old(data));
 	else if (type == ERROR_ARG)
 		return (error_exit("cd", NULL, 1), 1);
 	else if (type == ERROR_OPT)
