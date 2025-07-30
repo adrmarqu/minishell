@@ -118,3 +118,42 @@ char	**env_to_split(t_env *env)
 	split[i] = NULL;
 	return (split);
 }
+
+static char *get_path_env(t_env *data)
+{
+	t_env	*env;
+
+	env = data;
+	while (env)
+	{
+		if (!ft_strcmp(env->var, "PATH"))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
+}
+//get_path(data->env, data->argv[0], data->envp)
+char	*get_path(t_data *data)
+{
+	int		i;
+	char	*exec;
+	char	**allpath;
+	char	*path_part;
+	char	**s_cmd;
+
+	i = -1;
+	allpath = ft_split(get_path_env(data->env), ':');
+	s_cmd = ft_split(data->argv[0], ' ');
+	while (allpath[++i])
+	{
+		path_part = ft_strjoin(allpath[i], "/");
+		exec = ft_strjoin(path_part, s_cmd[0]);
+		free(path_part);
+		if (access(exec, F_OK | X_OK) == 0)
+			return (ft_free_split(s_cmd), exec);
+		free(exec);
+	}
+	ft_free_split(allpath);
+	ft_free_split(s_cmd);
+	return (data->argv[0]);
+}

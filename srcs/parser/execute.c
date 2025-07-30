@@ -58,7 +58,7 @@ static int	execute_builtin_fork(t_cmd *cmd, t_data *data, int in, int out)
 
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork"), 1);
+		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
 		ft_close_files(in, out, true);
@@ -69,19 +69,19 @@ static int	execute_builtin_fork(t_cmd *cmd, t_data *data, int in, int out)
 	return (WEXITSTATUS(status));
 }
 
-static int	execute_command(t_data *data, int in, int out)
+static int	execute_command(t_data *data, char *path, int in, int out)
 {
 	pid_t	pid;
 	int		status;
 
 	pid = fork();
 	if (pid < 0)
-		return (perror("fork"), 1);
+		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
 		ft_close_files(in, out, true);
-		execve(data->argv[0], data->argv, data->envp);
-		perror("execve");
+		execve(path, data->argv, data->envp);
+		perror("minishell");
 		exit(127);
 	}
 	ft_close_files(in, out, false);
@@ -104,7 +104,7 @@ int	execute(t_cmd *cmd, t_data *data, int input, int output)
 	data->envp = env_to_split(data->env);
 	if (!data->envp)
 		return (ft_free_split(data->argv), 1);
-	status = execute_command(data, input, output);
+	status = execute_command(data, get_path(data), input, output);
 	ft_free_split(data->argv);
 	data->argv = NULL;
 	ft_free_split(data->envp);
