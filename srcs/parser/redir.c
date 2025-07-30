@@ -2,9 +2,15 @@
 #include "../../libft/libft.h"
 #include <fcntl.h>
 
-static t_redir get_redir_type(char *line, char **file)
+static t_redir get_redir_type(char *line)
 {
-    // Mirar si hay
+    if (!ft_strcmp(line, "<"))
+        return (INPUT);
+    else if (!ft_strcmp(line, ">"))
+        return (OUTPUT);
+    else if (!ft_strcmp(line, ">>"))
+        return (APPEND);
+    return (EMPTY);
 }
 
 static int set_stdin(char *file, int *input)
@@ -17,6 +23,7 @@ static int set_stdin(char *file, int *input)
     if (fd < 0)
         return (perror("minishell"), 1);
     *input = fd;
+    return (0);
 }
 
 static int set_stdout(char *file, int *output)
@@ -29,6 +36,7 @@ static int set_stdout(char *file, int *output)
     if (fd < 0)
         return (perror("minishell"), 1);
     *output = fd;
+    return (0);
 }
 
 static int set_append(char *file, int *output)
@@ -41,19 +49,19 @@ static int set_append(char *file, int *output)
     if (fd < 0)
         return (perror("minishell"), 1);
     *output = fd;
+    return (0);
 }
 
 int set_redirections(t_token *cmd, int *input, int *output)
 {
     t_token *curr;
     t_redir type;
-    char *file;
     int status;
 
     curr = cmd;
     while (curr)
     {
-        type = get_redir_type(curr->value, &file);
+        type = get_redir_type(curr->value);
         if (type == INPUT)
             status = set_stdin(curr->next->value, input);
         else if (type == OUTPUT)
