@@ -15,6 +15,16 @@
 
 # include "global.h"
 
+typedef enum e_redir
+{
+	INPUT,
+    OUTPUT,
+    APPEND,
+    HEREDOC,
+    EMPTY,
+    ERROR
+}	t_redir;
+
 char	**split_tokens(char *line, const char **operators);
 char	**split_wildcard(char *str);
 char	**split_expand(char *str, int idx);
@@ -41,5 +51,8 @@ t_token	*strip_outer_parens(t_token *tokens);
 
 int		execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output);
 int		execute(t_cmd *cmd, t_data *data, int input, int output);
+
+int heredoc(t_data *data, t_token *cmd);
+int set_redirections(t_token *cmd, int *input, int *output);
 
 #endif

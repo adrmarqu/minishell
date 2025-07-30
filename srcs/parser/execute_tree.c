@@ -51,5 +51,7 @@ int	execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output)
 		return (execute_operator(cmd, data));
 	if (!expand(&cmd->command, data))
 		return (1);
+	//heredoc(data, cmd->command);
+	set_redirections(cmd->command, &input, &output);
 	return (execute(cmd, data, input, output));
 }
