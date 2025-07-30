@@ -21,7 +21,7 @@ static int set_stdin(char *file, int *input)
         return (1);
     fd = open(file, O_RDONLY);
     if (fd < 0)
-        return (perror("minishell"), 1);
+        return (fd_printf(2, "minishell: %s: ", file), perror(""), 1);
     *input = fd;
     return (0);
 }
@@ -34,7 +34,7 @@ static int set_stdout(char *file, int *output)
         return (1);
     fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd < 0)
-        return (perror("minishell"), 1);
+        return (fd_printf(2, "minishell: %s: ", file), perror(""), 1);
     *output = fd;
     return (0);
 }
@@ -47,7 +47,7 @@ static int set_append(char *file, int *output)
         return (1);
     fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
     if (fd < 0)
-        return (perror("minishell"), 1);
+        return (fd_printf(2, "minishell: %s: ", file), perror(""), 1);
     *output = fd;
     return (0);
 }
