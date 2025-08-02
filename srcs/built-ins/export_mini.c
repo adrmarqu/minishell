@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/16 17:26:03 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:37:22 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	blt_export(t_data *data, t_token *cmd)
 	status = 0;
 	while (cmd)
 	{
-		if (!check_export(cmd->value) || !export_input(data, cmd->value))
+		if (!check_export(cmd->value) || export_input(data, cmd->value))
 			status = 1;
 		cmd = cmd->next;
 	}
