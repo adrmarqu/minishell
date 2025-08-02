@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:52:56 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 19:31:20 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/02 19:52:59 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../../inc/free.h"
 #include <sys/wait.h>
 
+/*
 int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 {
 	int	pipefd[2];
@@ -29,6 +30,46 @@ int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 		close(input);
 	if (output != -1)
 		close(output);
+	return (0);
+}*/
+
+int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
+{
+	int		pipefd[2];
+	pid_t	pid;
+
+	if (pipe(pipefd) < 0)
+		return (perror("minishell"), 1);
+	pid = fork();
+	if (pid < 0)
+		return (perror("minishell"), 1);
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		if (input != -1)
+			dup2(input, STDIN_FILENO);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[1]);
+		execute_cmd_tree(cmd->left, data, input, pipefd[1]);
+		exit(0);
+	}
+	pid = fork();
+	if (pid < 0)
+		return (perror("minishell"), 1);
+	if (pid == 0)
+	{
+		close(pipefd[1]);
+		dup2(pipefd[0], STDIN_FILENO);
+		if (input != -1)
+			dup2(output, STDOUT_FILENO);
+		close(pipefd[0]);
+		execute_cmd_tree(cmd->right, data, pipefd[0], output);
+		exit(0);
+	}
+	close(pipefd[0]);
+	close(pipefd[1]);
+	wait(NULL);
+	wait(NULL);
 	return (0);
 }
 
