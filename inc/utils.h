@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:28:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 14:24:56 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/02 16:55:15 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ bool	is_match(const char *s, char **set);
 char	**tokens_to_split(t_token *token);
 char	**env_to_split(t_env *env);
 
-//char *get_path(t_env *data);
-char *get_path(t_data *data);
+char	*get_path(t_data *data);
 
 #endif

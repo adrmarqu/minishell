@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/15 17:27:26 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/02 18:16:12 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
 typedef enum e_redir
 {
 	INPUT,
-    OUTPUT,
-    APPEND,
-    HEREDOC,
-    EMPTY,
-    ERROR
+	OUTPUT,
+	APPEND,
+	HEREDOC,
+	EMPTY,
 }	t_redir;
 
 char	**split_tokens(char *line, const char **operators);
@@ -52,7 +51,9 @@ t_token	*strip_outer_parens(t_token *tokens);
 int		execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output);
 int		execute(t_cmd *cmd, t_data *data, int input, int output);
 
-int heredoc(t_data *data, t_token *cmd);
-int set_redirections(t_token *cmd, int *input, int *output);
+int		heredoc(t_token *cmd);
+int		set_redirections(t_token *cmd, int *input, int *output);
+
+t_redir	get_redir_type(char *line);
 
 #endif

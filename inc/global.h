@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 14:50:35 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/02 17:27:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_data
 	char			*oldpwd;
 	char			**envp;
 	char			**argv;
-	char			*line;
 }	t_data;
 
 typedef struct s_exp
