@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 18:00:41 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/01 19:55:14 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 13:05:10 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_cmd	*new_cmd(t_token *copy)
 	ret->left = NULL;
 	ret->right = NULL;
 	ret->command = NULL;
+	ret->pipes = NULL;
 	if (copy)
 		ret->op = copy->type;
 	return (ret);

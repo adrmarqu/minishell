@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 18:16:12 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:05:03 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**split_tokens(char *line, const char **operators);
 char	**split_wildcard(char *str);
 char	**split_expand(char *str, int idx);
 char	**split_var(char *str, int pos);
+bool	split_pipes(t_cmd **cmd, t_token *token, int size);
 
 t_token	*get_tokens(char *line);
 t_token	*new_token(t_token *prev, t_token_type op, char *s);

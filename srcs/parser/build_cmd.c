@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:34:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 11:36:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 13:34:11 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,36 @@
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
 #include "../../inc/free.h"
+/*
+void	print_t(t_token *t)
+{
+	t_token	*token;
+
+	token = t;
+	printf("----------------\n");
+	while (token)
+	{
+		printf("%s\n", token->value);
+		token = token->next;
+	}
+	printf("----------------\n");
+}
+
+void	print_token(t_token *t, t_token **p)
+{
+	int	i;
+
+	if (t)
+		print_t(t);
+	else
+	{
+		i = 0;
+		while (p && p[i])
+		{
+			print_t(p[i++]);
+		}
+	}
+}*/
 
 static void	set_portions(t_token **a, t_token **b, t_token *t, t_token *r)
 {
@@ -28,26 +58,21 @@ static void	set_portions(t_token **a, t_token **b, t_token *t, t_token *r)
 	r->next = NULL;
 }
 
-static t_token	*find_last_of(t_token *t, int lvl, t_token_type p)
+static t_token	*find_last_root(t_token *t, int lvl)
 {
 	t_token	*last;
 	int		depth;
 
-	depth = 0;
 	last = NULL;
+	depth = 0;
 	while (t)
 	{
 		if (t->type == OPEN)
 			depth++;
 		else if (t->type == CLOSE)
 			depth--;
-		if (depth == lvl)
-		{
-			if (p == t->type)
-				last = t;
-			else if (t->type == AND && p == OR)
-				last = t;
-		}
+		if (depth == lvl && (t->type == AND || t->type == OR))
+			last = t;
 		t = t->next;
 	}
 	return (last);
@@ -55,28 +80,39 @@ static t_token	*find_last_of(t_token *t, int lvl, t_token_type p)
 
 static t_token	*get_root_type(t_token *input)
 {
-	const t_token_type	types[] = {OR, PIPE, END};
-	int					lvl;
-	int					max_lvl;
-	int					i;
-	t_token				*root;
+	t_token		*root;
+	int			lvl;
+	const int	max = get_max_depth(input);
 
 	lvl = 0;
-	max_lvl = get_max_depth(input);
 	root = NULL;
-	while (lvl <= max_lvl)
+	while (lvl <= max)
 	{
-		i = 0;
-		while (types[i] != END)
-		{
-			root = find_last_of(input, lvl, types[i]);
-			if (root)
-				return (root);
-			i++;
-		}
+		root = find_last_root(input, lvl);
+		if (root)
+			return (root);
 		lvl++;
 	}
 	return (NULL);
+}
+
+bool	set_data_command(t_cmd **cmd, t_token *token)
+{
+	t_token	*t;
+	int		count;
+
+	count = 0;
+	t = token;
+	while (t)
+	{
+		if (t->type == PIPE)
+			count++;
+		t = t->next;
+	}
+	if (count)
+		return (split_pipes(cmd, token, count + 1));
+	(*cmd)->command = token;
+	return (true);
 }
 
 t_cmd	*build_cmd_tree(t_token *token)
@@ -84,7 +120,7 @@ t_cmd	*build_cmd_tree(t_token *token)
 	t_cmd	*cmd;
 	t_token	*root;
 	t_token	*a;
-	t_token	*b;
+	t_token *b;
 
 	token = strip_outer_parens(token);
 	root = get_root_type(token);
@@ -101,6 +137,8 @@ t_cmd	*build_cmd_tree(t_token *token)
 			return (ft_free_command(cmd), NULL);
 		return (cmd);
 	}
-	cmd->command = token;
+	if (!set_data_command(&cmd, token))
+		return (ft_free_command(cmd), NULL);
+	//print_token(cmd->command, cmd->pipes);
 	return (cmd);
 }

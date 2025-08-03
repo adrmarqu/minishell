@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:55:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/06/27 13:44:44 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 13:30:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,19 @@ void	ft_free_two_tokens(t_token *a, t_token *b)
 
 void	ft_free_command(t_cmd *cmd)
 {
+	int	i;
+
 	if (!cmd)
 		return ;
 	ft_free_command(cmd->left);
 	ft_free_command(cmd->right);
 	ft_free_token(cmd->command);
+	if (cmd->pipes)
+	{
+		i = 0;
+		while (cmd->pipes[i])
+			ft_free_token(cmd->pipes[i++]);
+		free(cmd->pipes);
+	}
 	free(cmd);
 }
