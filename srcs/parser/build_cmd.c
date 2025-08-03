@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 16:34:22 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 13:34:11 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:24:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,6 @@
 #include "../../inc/print.h"
 #include "../../libft/libft.h"
 #include "../../inc/free.h"
-/*
-void	print_t(t_token *t)
-{
-	t_token	*token;
-
-	token = t;
-	printf("----------------\n");
-	while (token)
-	{
-		printf("%s\n", token->value);
-		token = token->next;
-	}
-	printf("----------------\n");
-}
-
-void	print_token(t_token *t, t_token **p)
-{
-	int	i;
-
-	if (t)
-		print_t(t);
-	else
-	{
-		i = 0;
-		while (p && p[i])
-		{
-			print_t(p[i++]);
-		}
-	}
-}*/
 
 static void	set_portions(t_token **a, t_token **b, t_token *t, t_token *r)
 {
@@ -109,8 +79,9 @@ bool	set_data_command(t_cmd **cmd, t_token *token)
 			count++;
 		t = t->next;
 	}
+	(*cmd)->n_pipes = count + 1;
 	if (count)
-		return (split_pipes(cmd, token, count + 1));
+		return (split_pipes(cmd, token));
 	(*cmd)->command = token;
 	return (true);
 }
@@ -120,7 +91,7 @@ t_cmd	*build_cmd_tree(t_token *token)
 	t_cmd	*cmd;
 	t_token	*root;
 	t_token	*a;
-	t_token *b;
+	t_token	*b;
 
 	token = strip_outer_parens(token);
 	root = get_root_type(token);
@@ -139,6 +110,5 @@ t_cmd	*build_cmd_tree(t_token *token)
 	}
 	if (!set_data_command(&cmd, token))
 		return (ft_free_command(cmd), NULL);
-	//print_token(cmd->command, cmd->pipes);
 	return (cmd);
 }

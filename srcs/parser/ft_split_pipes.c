@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 13:02:05 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 13:28:37 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:17:16 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ t_token	*get_pipe(t_token **token)
 	return (pipe);
 }
 
-bool	split_pipes(t_cmd **cmd, t_token *token, int size)
+bool	split_pipes(t_cmd **cmd, t_token *token)
 {
 	t_token		**split;
 	int			i;
+	const int	size = (*cmd)->n_pipes;
 
 	split = malloc((size + 1) * sizeof(t_token *));
 	if (!split)

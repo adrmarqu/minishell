@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:52:56 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 19:52:59 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:23:25 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,64 +14,6 @@
 #include "../../libft/libft.h"
 #include "../../inc/free.h"
 #include <sys/wait.h>
-
-/*
-int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
-{
-	int	pipefd[2];
-
-	if (pipe(pipefd) < 0)
-		return (perror("pipe"), 1);
-	execute_cmd_tree(cmd->left, data, input, pipefd[1]);
-	close(pipefd[1]);
-	execute_cmd_tree(cmd->right, data, pipefd[0], output);
-	close(pipefd[0]);
-	if (input != -1)
-		close(input);
-	if (output != -1)
-		close(output);
-	return (0);
-}*/
-
-int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
-{
-	int		pipefd[2];
-	pid_t	pid;
-
-	if (pipe(pipefd) < 0)
-		return (perror("minishell"), 1);
-	pid = fork();
-	if (pid < 0)
-		return (perror("minishell"), 1);
-	if (pid == 0)
-	{
-		close(pipefd[0]);
-		if (input != -1)
-			dup2(input, STDIN_FILENO);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[1]);
-		execute_cmd_tree(cmd->left, data, input, pipefd[1]);
-		exit(0);
-	}
-	pid = fork();
-	if (pid < 0)
-		return (perror("minishell"), 1);
-	if (pid == 0)
-	{
-		close(pipefd[1]);
-		dup2(pipefd[0], STDIN_FILENO);
-		if (input != -1)
-			dup2(output, STDOUT_FILENO);
-		close(pipefd[0]);
-		execute_cmd_tree(cmd->right, data, pipefd[0], output);
-		exit(0);
-	}
-	close(pipefd[0]);
-	close(pipefd[1]);
-	wait(NULL);
-	wait(NULL);
-	return (0);
-}
 
 static int	execute_operator(t_cmd *cmd, t_data *data)
 {
@@ -83,7 +25,7 @@ static int	execute_operator(t_cmd *cmd, t_data *data)
 	return (status);
 }
 
-void	delete_node_redir(t_token **token)
+static void	delete_node_redir(t_token **token)
 {
 	t_token	*curr;
 	t_token	*prev;
@@ -112,17 +54,114 @@ void	delete_node_redir(t_token **token)
 	}
 }
 
+int execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
+{
+    int i;
+    int pipefd[2];
+    int prev_fd = input;
+    pid_t *pids;
+
+    pids = malloc(sizeof(pid_t) * cmd->n_pipes);
+    if (!pids)
+        return (perror("malloc"), 1);
+
+    for (i = 0; i < cmd->n_pipes; i++)
+    {
+        // Excepto el último comando, creamos un pipe
+        if (i < cmd->n_pipes - 1)
+        {
+            if (pipe(pipefd) == -1)
+            {
+                perror("pipe");
+                free(pids);
+                return 1;
+            }
+        }
+        else
+        {
+            // Último comando usa output (o stdout si output == -1)
+            pipefd[0] = -1;
+            pipefd[1] = output;
+        }
+
+        pids[i] = fork();
+        if (pids[i] < 0)
+        {
+            perror("fork");
+            free(pids);
+            return 1;
+        }
+
+        if (pids[i] == 0)
+        {
+            // Proceso hijo
+
+            // Redirige la entrada estándar (prev_fd) si no es -1
+            if (prev_fd != -1)
+            {
+                dup2(prev_fd, STDIN_FILENO);
+                close(prev_fd);
+            }
+
+            // Si no es el último comando, redirige la salida al pipe de escritura
+            if (i < cmd->n_pipes - 1)
+            {
+                close(pipefd[0]);
+                dup2(pipefd[1], STDOUT_FILENO);
+                close(pipefd[1]);
+            }
+            else if (output != -1)
+            {
+                dup2(output, STDOUT_FILENO);
+            }
+
+            // Ejecutar el comando actual (cmd->pipes[i]) llamando a execute_cmd_tree
+            // input y output aquí no se usan porque ya hicimos dup2
+            int ret = execute_cmd_tree(&(t_cmd){cmd->pipes[i], NULL, cmd->n_pipes, VOID, NULL, NULL}, data, -1, -1);
+            exit(ret);
+        }
+
+        // Proceso padre
+
+        // Cierra el extremo de escritura anterior si existía
+        if (prev_fd != -1)
+            close(prev_fd);
+
+        // Cierra el extremo de escritura del pipe actual para preparar la siguiente iteración
+        if (i < cmd->n_pipes - 1)
+        {
+            close(pipefd[1]);
+            prev_fd = pipefd[0];  // El siguiente hijo leerá de este pipe
+        }
+    }
+
+    // Esperar a todos los hijos
+    int status = 0;
+    for (i = 0; i < cmd->n_pipes; i++)
+    {
+        int wstatus;
+        waitpid(pids[i], &wstatus, 0);
+        if (i == cmd->n_pipes - 1 && WIFEXITED(wstatus))
+            status = WEXITSTATUS(wstatus);
+    }
+
+    free(pids);
+    return status;
+}
+
+
 int	execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output)
 {
 	if (!cmd)
-		return (1);
+		return (fd_printf(2, "ERROR CMD\n"), 1);
 	if (cmd->op == PIPE)
 		return (execute_pipe(cmd, data, input, output));
 	else if (cmd->op == OR || cmd->op == AND)
 		return (execute_operator(cmd, data));
 	if (!expand(&cmd->command, data))
 		return (1);
-	heredoc(cmd->command);
+	if (heredoc(cmd->command))
+		return (1);
 	if (set_redirections(cmd->command, &input, &output))
 		return (1);
 	delete_node_redir(&cmd->command);

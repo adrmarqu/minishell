@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 13:01:42 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:15:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_cmd
 {
 	t_token				*command;
 	t_token				**pipes;
+	int					n_pipes;
 	t_token_type		op;
 	struct s_cmd		*left;
 	struct s_cmd		*right;
