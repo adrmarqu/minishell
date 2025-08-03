@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:17:32 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:31:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_cmd	*new_cmd(t_token *copy);
 t_token	*strip_outer_parens(t_token *tokens);
 
 int		execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output);
+int		execute_pipe(t_cmd *cmd, t_data *data, int input, int output);
 int		execute(t_cmd *cmd, t_data *data, int input, int output);
 
 int		heredoc(t_token *cmd);
