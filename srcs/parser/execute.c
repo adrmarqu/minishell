@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:42 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 19:27:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:50:41 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ static int	execute_command(t_data *data, char *path, int in, int out)
 	pid_t	pid;
 	int		status;
 
-	if (!path)
-		return (error_memory("execute/command()"), 1);
 	pid = fork();
 	if (pid < 0)
 		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
+		if (!path)
+		{
+			error_not_found(data->argv[0]);
+			exit(127);
+		}
 		ft_close_files(in, out, true);
 		execve(path, data->argv, data->envp);
 		perror("minishell");

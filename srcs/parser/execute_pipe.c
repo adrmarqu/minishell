@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:29:54 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:41:40 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:52:07 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/utils.h"
 #include "../../inc/free.h"
+#include "../../inc/print.h"
 #include "../../inc/parser.h"
 #include "../../libft/libft.h"
 #include <sys/wait.h>
@@ -43,7 +44,7 @@ static int	exec_single_command(t_token *cmd_tokens, t_data *data)
 	ft_free_split(data->envp);
 	exit(127);
 }
-
+// Mirar si pones un comando incorrecto en pipe
 int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 {
 	int		i;

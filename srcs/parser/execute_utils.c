@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:48 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 18:11:42 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:44:55 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ char	*get_path(t_data *data)
 	}
 	ft_free_split(allpath);
 	ft_free_split(s_cmd);
-	return (ft_strdup(data->argv[0]));
+	return (NULL);
 }
