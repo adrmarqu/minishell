@@ -58,4 +58,6 @@ int		set_redirections(t_token *cmd, int *input, int *output);
 
 t_redir	get_redir_type(char *line);
 
+void	ft_close_files(int a, int b, bool make_dup);
+
 #endif

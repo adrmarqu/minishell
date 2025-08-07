@@ -34,6 +34,7 @@ typedef struct s_data
 	char			*oldpwd;
 	char			**envp;
 	char			**argv;
+	int				fd[2];
 }	t_data;
 
 typedef struct s_exp

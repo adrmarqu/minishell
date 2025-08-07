@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../inc/parser.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 
 void	ft_free_token(t_token *token)
@@ -50,4 +51,10 @@ void	ft_free_command(t_cmd *cmd)
 		free(cmd->pipes);
 	}
 	free(cmd);
+}
+
+void ft_free_data_split(t_data *data)
+{
+	ft_free_split(data->argv);
+	ft_free_split(data->envp);
 }

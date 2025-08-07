@@ -27,6 +27,6 @@ void	error_chdir(const char *s, const char *err)
 
 void	error_not_found(const char *cmd)
 {
-	fd_printf(2, "%s: command not found\n", cmd);
+	fd_printf(2, "minishell: %s: command not found\n", cmd);
 	g_exit_status = 127;
 }

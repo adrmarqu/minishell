@@ -21,5 +21,6 @@ void	ft_free_token(t_token *token);
 void	ft_free_two_tokens(t_token *a, t_token *b);
 void	ft_free_command(t_cmd *cmd);
 void	ft_free_one_env(t_env **list, t_env *prev, t_env *curr);
+void    ft_free_data_split(t_data *data);
 
 #endif

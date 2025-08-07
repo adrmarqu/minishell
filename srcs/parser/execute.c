@@ -14,6 +14,7 @@
 #include "../../inc/utils.h"
 #include "../../inc/built.h"
 #include "../../inc/print.h"
+#include "../../inc/free.h"
 #include "../../inc/minishell.h"
 #include "../../libft/libft.h"
 #include <sys/wait.h>
@@ -37,7 +38,7 @@ static int	execute_builtin(t_data *data, t_token *cmd)
 	return (1);
 }
 
-static void	ft_close_files(int a, int b, bool make_dup)
+void	ft_close_files(int a, int b, bool make_dup)
 {
 	if (a != -1)
 	{
@@ -113,8 +114,7 @@ int	execute(t_cmd *cmd, t_data *data, int input, int output)
 	if (!data->envp)
 		return (ft_free_split(data->argv), error_memory("execute/env"), 1);
 	status = execute_command(data, get_path(data), input, output);
-	ft_free_split(data->argv);
-	ft_free_split(data->envp);
+	ft_free_data_split(data);
 	data->argv = NULL;
 	data->envp = NULL;
 	return (status);
