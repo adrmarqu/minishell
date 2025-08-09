@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:53:40 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 17:02:09 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:21:39 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,27 +116,25 @@ static void	*init_env(char **envp)
 t_data	init_data(char **env)
 {
 	t_data	ret;
-	t_env	*find;
+	t_env	*curr;
 
-	ret.end = true;
-	ret.home = NULL;
-	ret.pwd = NULL;
-	ret.oldpwd = NULL;
-	ret.envp = NULL;
-	ret.argv = NULL;
+	init_var_data(&ret);
 	ret.env = init_env(env);
 	if (!ret.env)
 		return (ret);
-	find = ret.env;
+	ret.level = get_level(ret.env);
+	if (add_hidden(ret.level, ret.env))
+		return (ret);
 	ret.end = false;
-	while (find)
+	curr = ret.env;
+	while (curr)
 	{
-		if (!ft_strcmp(find->var, "HOME"))
+		if (!ft_strcmp(curr->var, "HOME"))
 		{
-			ret.home = ft_strdup(find->value);
+			ret.home = ft_strdup(curr->value);
 			return (ret);
 		}
-		find = find->next;
+		curr = curr->next;
 	}
 	return (ret);
 }

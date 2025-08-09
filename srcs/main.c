@@ -6,32 +6,45 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 17:12:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:46:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <signal.h>
 #include "../libft/libft.h"
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/print.h"
 #include "../inc/free.h"
 
-/*
-
-	C ->	Interrumpe la linea actual. limpia la entrada y 
-			nuevo prompt y devuelve 130
-	D ->	Si se presiona en una linea vacia termina shell, si esta en 
-			un comando, teermmina el comando
-	\ ->	Cuando es interactivo no hace nada, en programas como cat 
-			o vim termina el proceso: 131
-
-*/
-
 int	g_exit_status = 0;
+
+int	update_shlvl(t_env *env, char *level)
+{
+	t_env	*curr;
+	char	*lvl;
+
+	if (!level)
+		lvl = ft_strdup("1");
+	else
+		lvl = ft_strdup(level);
+	if (!lvl)
+		return (error_memory("update_shlvl"), 1);
+	curr = env;
+	while (curr)
+	{
+		if (!ft_strcmp("SHLVL", curr->var))
+		{
+			free(curr->value);
+			curr->value = lvl;
+			return (0);
+		}
+		curr = curr->next;
+	}
+	return (0);
+}
 
 static void	read_prompt(t_data *data)
 {
@@ -39,7 +52,7 @@ static void	read_prompt(t_data *data)
 
 	while (!data->end)
 	{
-		set_signals(2, 0);
+		set_signals(data->level, 2, 0);
 		line = readline("minishell> ");
 		if (!line)
 		{
@@ -67,8 +80,8 @@ int	main(int ac, char **av, char **env)
 	data = init_data(env);
 	if (data.end)
 		return (fd_printf(2, "Error: failed to iniciate minishell"), 1);
-	signal(SIGINT, rl_signal);
-	signal(SIGQUIT, SIG_IGN);
+	printf("LEVEL: %d\n", data.level);
+	set_signals(data.level, 2, 0);
 	read_prompt(&data);
 	ft_free_data(&data);
 	return (g_exit_status);

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:13 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 19:37:22 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:27:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	print_export(t_env *env)
 		smallest = get_smaller(env, smallest);
 		if (!smallest)
 			break ;
+		if (smallest->var[0] == '0')
+			continue ;
 		fd_printf(1, "declare -x %s", smallest->var);
 		if (smallest->equal)
 		{

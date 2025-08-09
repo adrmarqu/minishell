@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:26 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 13:01:19 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:29:17 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	blt_env(t_data *data, t_token *cmd)
 	env = data->env;
 	while (env)
 	{
-		if (env->equal)
+		if (env->equal && env->var[0] != '0')
 		{
 			fd_printf(1, "%s=", env->var);
 			if (env->value)

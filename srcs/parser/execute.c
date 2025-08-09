@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:42 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 17:30:37 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:03:06 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static int	execute_builtin_fork(t_cmd *cmd, t_data *data, int in, int out)
 		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
-		set_signals(1, 1);
+		set_signals(data->level, 1, 1);
 		ft_close_files(in, out, true);
 		exit(execute_builtin(data, cmd->command));
 	}
-	set_signals(3, 3);
+	set_signals(data->level, 3, 3);
 	ft_close_files(in, out, false);
 	waitpid(pid, &status, 0);
 	return (handle_exit_status(status));
@@ -77,7 +77,7 @@ static int	execute_command(t_data *data, char *path, int in, int out)
 		return (perror("minishell"), 1);
 	if (pid == 0)
 	{
-		set_signals(1, 1);
+		set_signals(data->level, 1, 1);
 		if (!path)
 		{
 			error_not_found(data->argv[0]);
@@ -88,7 +88,7 @@ static int	execute_command(t_data *data, char *path, int in, int out)
 		perror("minishell");
 		exit(127);
 	}
-	set_signals(3, 3);
+	set_signals(data->level, 3, 3);
 	ft_close_files(in, out, false);
 	waitpid(pid, &status, 0);
 	return (handle_exit_status(status));

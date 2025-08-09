@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:03:05 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 17:05:28 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:30:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-#include "../inc/global.h"
+#include "../inc/free.h"
+#include "../inc/print.h"
 
 static int	count_tokens(t_token *obj)
 {
@@ -98,4 +99,31 @@ char	**env_to_split(t_env *env)
 	}
 	split[i] = NULL;
 	return (split);
+}
+
+int	add_hidden(int level, t_env *env)
+{
+	t_env	*curr;
+	t_env	*prev;
+	t_env	*hidden;
+
+	curr = env;
+	while (curr)
+	{
+		if (!ft_strcmp("0HIDDEN", curr->var))
+			return (0);
+		prev = curr;
+		curr = curr->next;
+	}
+	hidden = malloc(sizeof(t_env));
+	if (!hidden)
+		return (error_memory("utils2/hidden"), 1);
+	hidden->next = NULL;
+	hidden->var = ft_strdup("0HIDDEN");
+	hidden->equal = true;
+	hidden->value = ft_itoa(level);
+	if (!hidden->var || !hidden->value)
+		return (error_memory("hidden/memory"), ft_free_env(hidden), 1);
+	prev->next = hidden;
+	return (0);
 }

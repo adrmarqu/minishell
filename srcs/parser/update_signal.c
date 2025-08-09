@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:57:21 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 17:43:05 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:32:34 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,16 @@ void	pipe_signal(int sig)
 	}
 }
 
-void	set_signals(int	intmode, int quitmode)
+void	set_signals(int level, int intmode, int quitmode)
 {
 	if (intmode == 0)
 		signal(SIGINT, SIG_IGN);
 	else if (intmode == 1)
 		signal(SIGINT, SIG_DFL);
-	else if (intmode == 2)
+	else if (intmode == 2 && level == 1)
 		signal(SIGINT, rl_base_signal);
+	else if (intmode == 2 && level > 1)
+		signal(SIGINT, rl_signal);
 	else if (intmode == 3)
 		signal(SIGINT, ex_signal);
 	if (quitmode == 0)

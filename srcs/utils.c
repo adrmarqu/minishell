@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:26:12 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 14:00:54 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:45:44 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/print.h"
+#include "../inc/utils.h"
 
 int	get_shlvl(void)
 {
@@ -62,4 +63,38 @@ bool	is_closed(const char *line)
 	else if (level != 0)
 		error_close(1);
 	return (!single && !q_double && level == 0);
+}
+
+int	get_level(t_env *env)
+{
+	t_env	*curr;
+	int		lvl;
+
+	curr = env;
+	while (curr)
+	{
+		if (!ft_strcmp(curr->var, "0HIDDEN"))
+		{
+			lvl = ft_atoi(curr->value) + 1;
+			free(curr->value);
+			curr->value = ft_itoa(lvl);
+			if (!curr->value)
+				return (update_shlvl(env, NULL), 1);
+			return (update_shlvl(env, curr->value), lvl);
+		}
+		curr = curr->next;
+	}
+	return (update_shlvl(env, NULL), 1);
+}
+
+void	init_var_data(t_data *data)
+{
+	data->env = NULL;
+	data->end = true;
+	data->level = -1;
+	data->home = NULL;
+	data->pwd = NULL;
+	data->oldpwd = NULL;
+	data->envp = NULL;
+	data->argv = NULL;
 }
