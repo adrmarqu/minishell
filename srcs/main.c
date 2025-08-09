@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 18:46:21 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:50:01 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	main(int ac, char **av, char **env)
 	data = init_data(env);
 	if (data.end)
 		return (fd_printf(2, "Error: failed to iniciate minishell"), 1);
-	printf("LEVEL: %d\n", data.level);
 	set_signals(data.level, 2, 0);
 	read_prompt(&data);
 	ft_free_data(&data);
