@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 13:55:07 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 13:30:46 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:04:51 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_free_command(t_cmd *cmd)
 	free(cmd);
 }
 
-void ft_free_data_split(t_data *data)
+void	ft_free_data_split(t_data *data)
 {
 	ft_free_split(data->argv);
 	ft_free_split(data->envp);

@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 17:39:03 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:46:35 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:06:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	error_chdir(const char *s, const char *err)
 
 void	error_not_found(const char *cmd)
 {
-	fd_printf(2, "minishell: %s: command not found\n", cmd);
+	fd_printf(2, "%s: command not found\n", cmd);
 	g_exit_status = 127;
 }

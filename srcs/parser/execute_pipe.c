@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:29:54 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:52:07 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:05:29 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,12 @@ int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 	pids = malloc(sizeof(pid_t) * cmd->n_pipes);
 	if (!pids)
 		return (perror("malloc"), 1);
-
 	while (i < cmd->n_pipes)
 	{
 		if (setup_pipe(pipefd, i, cmd->n_pipes))
 			return (free(pids), 1);
 		if (fork_and_run_pipe(cmd, data, pids, i, prev_fd, pipefd, output))
 			return (free(pids), 1);
-
 		if (prev_fd != -1)
 			close(prev_fd);
 		if (i < cmd->n_pipes - 1)
