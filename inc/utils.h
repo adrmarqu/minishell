@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:28:39 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/02 16:55:15 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:53:57 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ char	**tokens_to_split(t_token *token);
 char	**env_to_split(t_env *env);
 
 char	*get_path(t_data *data);
+int		prepare_execution(t_token *cmd, t_data *data, char **path);
 
 #endif

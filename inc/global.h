@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:28:16 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:15:45 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:43:32 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,14 @@ typedef struct s_cmd
 	struct s_cmd		*left;
 	struct s_cmd		*right;
 }	t_cmd;
+
+typedef struct s_pipe
+{
+	int		*pids;
+	int		idx;
+	int		pipefd[2];
+	int		input;
+	int		output;
+}	t_pipe;
 
 #endif

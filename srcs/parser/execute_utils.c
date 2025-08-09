@@ -6,12 +6,13 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:48 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:44:55 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:54:58 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
-#include "../../inc/global.h"
+#include "../../inc/print.h"
+#include "../../inc/utils.h"
 
 bool	is_builtin(char *command)
 {
@@ -67,4 +68,20 @@ char	*get_path(t_data *data)
 	ft_free_split(allpath);
 	ft_free_split(s_cmd);
 	return (NULL);
+}
+
+int	prepare_execution(t_token *cmd, t_data *data, char **path)
+{
+	*path = NULL;
+	data->argv = tokens_to_split(cmd);
+	if (!data->argv)
+		return (error_memory("execute_utils/prepate_execution/token"), 1);
+	data->envp = env_to_split(data->env);
+	if (!data->envp)
+	{
+		ft_free_split(data->argv);
+		return (error_memory("execute_utils/prepate_execution/env"), 1);
+	}
+	*path = get_path(data);
+	return (0);
 }

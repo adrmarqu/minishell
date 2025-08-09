@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 17:00:42 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/03 14:50:41 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:52:04 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ static int	execute_command(t_data *data, char *path, int in, int out)
 	}
 	ft_close_files(in, out, false);
 	waitpid(pid, &status, 0);
-	free(path);
 	return (WEXITSTATUS(status));
 }
 
@@ -102,18 +101,16 @@ int	execute(t_cmd *cmd, t_data *data, int input, int output)
 {
 	const bool	isbuiltin = is_builtin(cmd->command->value);
 	int			status;
+	char		*path;
 
 	if (isbuiltin && input == -1 && output == -1)
 		return (execute_builtin(data, cmd->command));
 	else if (isbuiltin)
 		return (execute_builtin_fork(cmd, data, input, output));
-	data->argv = tokens_to_split(cmd->command);
-	if (!data->argv)
-		return (error_memory("execute/token"), 1);
-	data->envp = env_to_split(data->env);
-	if (!data->envp)
-		return (ft_free_split(data->argv), error_memory("execute/env"), 1);
-	status = execute_command(data, get_path(data), input, output);
+	if (prepare_execution(cmd->command, data, &path))
+		return (1);
+	status = execute_command(data, path, input, output);
+	free(path);
 	ft_free_data_split(data);
 	data->argv = NULL;
 	data->envp = NULL;
