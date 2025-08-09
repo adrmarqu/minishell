@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:57:48 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 16:54:58 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:37:45 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,30 @@ int	prepare_execution(t_token *cmd, t_data *data, char **path)
 		ft_free_split(data->argv);
 		return (error_memory("execute_utils/prepate_execution/env"), 1);
 	}
+	if (cmd->value[0] == '/' || (cmd->value[0] == '.' && cmd->value[1] == '/'))
+	{
+		if (access(cmd->value, X_OK) == 0)
+		{
+			*path = ft_strdup(cmd->value);
+			return (0);
+		}
+	}
 	*path = get_path(data);
 	return (0);
+}
+
+void	ft_close_files(int a, int b, bool make_dup)
+{
+	if (a != -1)
+	{
+		if (make_dup)
+			dup2(a, STDIN_FILENO);
+		close(a);
+	}
+	if (b != -1)
+	{
+		if (make_dup)
+			dup2(b, STDOUT_FILENO);
+		close(b);
+	}
 }

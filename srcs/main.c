@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/07/20 14:06:22 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:12:46 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,13 @@
 
 int	g_exit_status = 0;
 
-void	handle_signal(int sig)
-{
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		g_exit_status = 130;
-	}
-	if (sig == SIGQUIT)
-	{
-		printf("QUITING\n");
-	}
-}
-
 static void	read_prompt(t_data *data)
 {
 	char	*line;
 
 	while (!data->end)
 	{
+		set_signals(2, 0);
 		line = readline("minishell> ");
 		if (!line)
 		{
@@ -82,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	data = init_data(env);
 	if (data.end)
 		return (fd_printf(2, "Error: failed to iniciate minishell"), 1);
-	signal(SIGINT, handle_signal);
+	signal(SIGINT, rl_signal);
 	signal(SIGQUIT, SIG_IGN);
 	read_prompt(&data);
 	ft_free_data(&data);

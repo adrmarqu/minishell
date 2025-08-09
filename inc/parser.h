@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:59:45 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 16:53:20 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:27:52 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ int		set_redirections(t_token *cmd, int *input, int *output);
 
 t_redir	get_redir_type(char *line);
 
-void	ft_close_files(int a, int b, bool make_dup);
+int		handle_exit_status(int status);
 
 #endif

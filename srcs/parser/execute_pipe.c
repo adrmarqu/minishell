@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 14:29:54 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 16:53:36 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/09 17:32:33 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static int	wait_all_children(pid_t *pids, int n)
 	while (i < n)
 	{
 		waitpid(pids[i], &wstatus, 0);
-		if (i == n - 1 && WIFEXITED(wstatus))
-			status = WEXITSTATUS(wstatus);
+		if (i == n - 1)
+			status = handle_exit_status(wstatus);
 		i++;
 	}
 	free(pids);
@@ -62,6 +62,7 @@ static int	fork_and_run_pipe(t_data *data, t_cmd *cmd, t_pipe pipe)
 		return (free(path), perror("minishell"), 1);
 	if (pipe.pids[pipe.idx] == 0)
 	{
+		set_signals(1, 1);
 		if (pipe.idx < cmd->n_pipes - 1)
 		{
 			close(pipe.pipefd[0]);
@@ -71,10 +72,9 @@ static int	fork_and_run_pipe(t_data *data, t_cmd *cmd, t_pipe pipe)
 			ft_close_files(pipe.input, pipe.output, true);
 		exec_single_command(data, path);
 	}
+	set_signals(3, 2);
 	free(path);
 	ft_free_data_split(data);
-	data->argv = NULL;
-	data->envp = NULL;
 	return (0);
 }
 
