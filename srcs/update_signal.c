@@ -6,7 +6,7 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 16:57:21 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 18:32:34 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/10 14:20:47 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "../../inc/global.h"
+#include "../inc/global.h"
 
 void	rl_base_signal(int sig)
 {
@@ -43,23 +43,18 @@ void	rl_signal(int sig)
 void	ex_signal(int sig)
 {
 	if (sig == SIGINT)
-	{
 		write(2, "\n", 1);
-		g_exit_status = 130;
-	}
-	if (sig == SIGQUIT)
-	{
+	else if (sig == SIGQUIT)
 		write(2, "Quit (core dumped)\n", 19);
-		g_exit_status = 131;
-	}
+	g_exit_status = 128 + sig;
 }
 
 void	pipe_signal(int sig)
 {
-	if (sig == SIGQUIT)
-	{
+	if (sig == SIGINT)
+		g_exit_status = 130;
+	else if (sig == SIGQUIT)
 		g_exit_status = 131;
-	}
 }
 
 void	set_signals(int level, int intmode, int quitmode)
@@ -72,14 +67,18 @@ void	set_signals(int level, int intmode, int quitmode)
 		signal(SIGINT, rl_base_signal);
 	else if (intmode == 2 && level > 1)
 		signal(SIGINT, rl_signal);
-	else if (intmode == 3)
+	else if (intmode == 3 && level == 1)
 		signal(SIGINT, ex_signal);
+	else if (intmode == 3 && level > 1)
+		signal(SIGINT, pipe_signal);
 	if (quitmode == 0)
 		signal(SIGQUIT, SIG_IGN);
 	else if (quitmode == 1)
 		signal(SIGQUIT, SIG_DFL);
 	else if (quitmode == 2)
 		signal(SIGQUIT, pipe_signal);
-	else if (quitmode == 3)
+	else if (quitmode == 3 && level == 1)
 		signal(SIGQUIT, ex_signal);
+	else if (quitmode == 3 && level > 1)
+		signal(SIGQUIT, pipe_signal);
 }

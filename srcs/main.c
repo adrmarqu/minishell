@@ -6,18 +6,17 @@
 /*   By: adrmarqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 11:16:23 by adrmarqu          #+#    #+#             */
-/*   Updated: 2025/08/09 18:50:01 by adrmarqu         ###   ########.fr       */
+/*   Updated: 2025/08/10 14:28:21 by adrmarqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "../libft/libft.h"
 #include "../inc/minishell.h"
 #include "../inc/utils.h"
 #include "../inc/print.h"
 #include "../inc/free.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 int	g_exit_status = 0;
 
