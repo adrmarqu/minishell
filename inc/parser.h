@@ -53,10 +53,14 @@ int		execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output);
 int		execute_pipe(t_cmd *cmd, t_data *data, int input, int output);
 int		execute(t_cmd *cmd, t_data *data, int input, int output);
 
-int		heredoc(t_token *cmd);
+int		heredoc(t_token *cmd, int *input);
 int		set_redirections(t_token *cmd, int *input, int *output);
 
 t_redir	get_redir_type(char *line);
+
+void	delete_node_redir(t_token **token);
+void	apply_heredoc(t_token *cmd, int *input, int h_fd);
+int		execute_builtin(t_data *data, t_token *cmd);
 
 int		handle_exit_status(int status);
 

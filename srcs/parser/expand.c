@@ -37,16 +37,20 @@ static char	*find_var_token(char *str, t_data *data)
 {
 	int		i;
 	int		len;
-	bool	simple;
+	bool	s_quote;
+	bool	d_quote;
 
 	i = 0;
 	len = ft_strlen(str);
-	simple = false;
+	s_quote = false;
+	d_quote = false;
 	while (i < len)
 	{
-		if (str[i] == '\'')
-			simple = !simple;
-		else if (str[i] == '$' && !simple)
+		if (str[i] == '\'' && !d_quote)
+			s_quote = !s_quote;
+		else if (str[i] == '\"' && !s_quote)
+			d_quote = !d_quote;
+		else if (str[i] == '$' && !s_quote)
 		{
 			str = expand_var(str, &i, data);
 			if (!str)

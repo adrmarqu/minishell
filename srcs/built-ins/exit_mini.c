@@ -31,7 +31,7 @@ static long long int	get_num_exit(char *s, bool *err)
 
 static int	convert_num(long long int num)
 {
-	return (num % 256);
+	return ((unsigned char)num);
 }
 
 int	blt_exit(t_data *data, t_token *cmd)

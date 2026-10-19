@@ -36,11 +36,7 @@ int	cd_home(t_data *data)
 
 	path = get_home_env(data);
 	if (!path)
-	{
-		if (!data->home)
-			return (fd_printf(2, "minishell: cd: HOME not set\n"), 1);
-		path = data->home;
-	}
+		return (fd_printf(2, "minishell: cd: HOME not set\n"), 1);
 	return (ft_chdir(data, path));
 }
 
@@ -48,6 +44,7 @@ int	cd_expand_home(t_data *data, char *path)
 {
 	int		status;
 	char	*dir;
+	char	*home;
 
 	if (!path[1])
 		return (cd_home(data));
@@ -56,7 +53,10 @@ int	cd_expand_home(t_data *data, char *path)
 		fd_printf(2, "minishell: cd: %s: No such file or directory\n", path);
 		return (1);
 	}
-	dir = ft_strjoin(data->home, path + 1);
+	home = get_home_env(data);
+	if (!home)
+		return (fd_printf(2, "minishell: cd: HOME not set\n"), 1);
+	dir = ft_strjoin(home, path + 1);
 	if (!dir)
 		return (error_memory("cd_expand/cd_expand_home()"), 1);
 	status = ft_chdir(data, dir);

@@ -19,7 +19,7 @@
 #include "../../libft/libft.h"
 #include <sys/wait.h>
 
-static int	execute_builtin(t_data *data, t_token *cmd)
+int	execute_builtin(t_data *data, t_token *cmd)
 {
 	if (!ft_strcmp(cmd->value, "cd"))
 		return (blt_cd(data, cmd));

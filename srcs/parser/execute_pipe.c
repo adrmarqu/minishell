@@ -51,72 +51,81 @@ static int	wait_all_children(pid_t *pids, int n)
 	return (status);
 }
 
-static int	fork_and_run_pipe(t_data *data, t_cmd *cmd, t_pipe pipe)
+static void	child_pipe_exec(t_data *data, t_cmd *cmd, t_pipe p, int h_fd)
 {
+	int		in;
+	int		out;
 	char	*path;
 
-	if (prepare_execution(cmd->pipes[pipe.idx], data, &path) != 0)
-		return (1);
-	pipe.pids[pipe.idx] = fork();
-	if (pipe.pids[pipe.idx] < 0)
-		return (free(path), perror("minishell"), 1);
-	if (pipe.pids[pipe.idx] == 0)
+	set_signals(data->level, 1, 1);
+	in = p.input;
+	out = p.output;
+	if (p.idx < cmd->n_pipes - 1)
 	{
-		set_signals(data->level, 1, 1);
-		if (pipe.idx < cmd->n_pipes - 1)
-		{
-			close(pipe.pipefd[0]);
-			ft_close_files(pipe.input, pipe.pipefd[1], true);
-		}
-		else
-			ft_close_files(pipe.input, pipe.output, true);
-		exec_single_command(data, path);
+		close(p.pipefd[0]);
+		out = p.pipefd[1];
 	}
-	set_signals(data->level, 3, 2);
-	free(path);
-	ft_free_data_split(data);
-	return (0);
+	set_redirections(cmd->pipes[p.idx], &in, &out);
+	apply_heredoc(cmd->pipes[p.idx], &in, h_fd);
+	delete_node_redir(&cmd->pipes[p.idx]);
+	ft_close_files(in, out, true);
+	if (!cmd->pipes[p.idx])
+		exit(0);
+	if (is_builtin(cmd->pipes[p.idx]->value))
+		exit(execute_builtin(data, cmd->pipes[p.idx]));
+	path = NULL;
+	if (prepare_execution(cmd->pipes[p.idx], data, &path) != 0)
+		exit(1);
+	exec_single_command(data, path);
 }
 
-static int	setup_pipe(int pipefd[2], int i, int n_pipes)
+static int	fork_and_run_pipe(t_data *data, t_cmd *cmd, t_pipe p)
 {
-	if (i < n_pipes - 1)
+	int	h_fd;
+
+	if (!expand(&cmd->pipes[p.idx], data))
+		return (1);
+	h_fd = -1;
+	if (heredoc(cmd->pipes[p.idx], &h_fd))
+		return (1);
+	p.pids[p.idx] = fork();
+	if (p.pids[p.idx] < 0)
 	{
-		if (pipe(pipefd) == -1)
-			return (perror("pipe"), 1);
+		if (h_fd != -1)
+			close(h_fd);
+		return (perror("minishell"), 1);
 	}
-	else
-	{
-		pipefd[0] = -1;
-		pipefd[1] = -1;
-	}
+	if (p.pids[p.idx] == 0)
+		child_pipe_exec(data, cmd, p, h_fd);
+	if (h_fd != -1)
+		close(h_fd);
+	set_signals(data->level, 3, 2);
 	return (0);
 }
 
 int	execute_pipe(t_cmd *cmd, t_data *data, int input, int output)
 {
-	t_pipe	pipe;
+	t_pipe	p;
 
-	pipe.pids = malloc(cmd->n_pipes * sizeof(pid_t));
-	if (!pipe.pids)
+	p.pids = malloc(cmd->n_pipes * sizeof(pid_t));
+	if (!p.pids)
 		return (perror("minishell"), 1);
-	pipe.input = input;
-	pipe.output = output;
-	pipe.idx = 0;
-	while (pipe.idx < cmd->n_pipes)
+	p.input = input;
+	p.output = output;
+	p.idx = -1;
+	while (++p.idx < cmd->n_pipes)
 	{
-		if (setup_pipe(pipe.pipefd, pipe.idx, cmd->n_pipes))
-			return (free(pipe.pids), 1);
-		if (fork_and_run_pipe(data, cmd, pipe))
-			return (free(pipe.pids), 1);
-		if (pipe.input != -1)
-			close(pipe.input);
-		if (pipe.idx < cmd->n_pipes - 1)
+		if (p.idx < cmd->n_pipes - 1 && pipe(p.pipefd) == -1)
+			return (free(p.pids), perror("pipe"), 1);
+		if (fork_and_run_pipe(data, cmd, p))
+			return (free(p.pids), 1);
+		if (p.input != -1)
+			close(p.input);
+		if (p.idx < cmd->n_pipes - 1)
 		{
-			close(pipe.pipefd[1]);
-			pipe.input = pipe.pipefd[0];
+			close(p.pipefd[1]);
+			p.input = p.pipefd[0];
 		}
-		pipe.idx++;
 	}
-	return (wait_all_children(pipe.pids, cmd->n_pipes));
+	return (wait_all_children(p.pids, cmd->n_pipes));
 }

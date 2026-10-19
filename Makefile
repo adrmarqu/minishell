@@ -56,11 +56,8 @@ $(OBJ_D)%.o: $(PAR_D)%.c Makefile | $(OBJ_D) $(DEP_D)
 $(LIBFT):
 	make -C libft --no-print-directory
 
-$(OBJ_D):
-	mkdir -p $(OBJ_D)
-
-$(DEP_D):
-	mkdir -p $(DEP_D)
+$(OBJ_D) $(DEP_D) objects dependencies:
+	mkdir -p $@
 
 readline:
 	make -C readline

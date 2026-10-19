@@ -32,17 +32,15 @@ static int	count_tokens(t_token *obj)
 
 static int	count_env(t_env *obj)
 {
-	t_env	*first;
-	int		size;
+	int	size;
 
-	first = obj;
 	size = 0;
 	while (obj)
 	{
+		if (obj->var && obj->var[0] != '0')
+			size++;
 		obj = obj->next;
-		size++;
 	}
-	obj = first;
 	return (size);
 }
 
@@ -85,16 +83,16 @@ char	**env_to_split(t_env *env)
 	i = 0;
 	while (env)
 	{
-		if (env->equal)
-			str = ft_threejoin(env->var, "=", env->value);
-		else
-			str = ft_strdup(env->var);
-		if (!str)
+		if (env->var && env->var[0] != '0')
 		{
-			split[i] = NULL;
-			return (ft_free_split(split), NULL);
+			if (env->equal)
+				str = ft_threejoin(env->var, "=", env->value);
+			else
+				str = ft_strdup(env->var);
+			if (!str)
+				return (split[i] = NULL, ft_free_split(split), NULL);
+			split[i++] = str;
 		}
-		split[i++] = str;
 		env = env->next;
 	}
 	split[i] = NULL;

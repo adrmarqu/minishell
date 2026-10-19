@@ -37,9 +37,12 @@ int	blt_echo(t_data *data, t_token *cmd)
 	bool	option;
 
 	cmd = cmd->next;
-	option = isoption(cmd);
-	if (option)
+	option = false;
+	while (isoption(cmd))
+	{
+		option = true;
 		cmd = cmd->next;
+	}
 	while (cmd)
 	{
 		fd_printf(1, "%s", cmd->value);

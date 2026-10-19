@@ -34,17 +34,39 @@ void	delete_var(t_env **envp, char *var)
 	}
 }
 
+static bool	check_unset(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s || (!ft_isalpha(s[i]) && s[i] != '_'))
+		return (fd_printf(2, "minishell: unset: `%s': not a valid identifier\n", s), false);
+	while (s[i])
+	{
+		if (!ft_isalnum(s[i]) && s[i] != '_')
+			return (fd_printf(2, "minishell: unset: `%s': not a valid identifier\n", s), false);
+		i++;
+	}
+	return (true);
+}
+
 int	blt_unset(t_data *data, t_token *cmd)
 {
+	int	status;
+
 	cmd = cmd->next;
 	if (!cmd)
 		return (0);
 	if (cmd->value[0] == '-' && cmd->value[1])
 		return (error_option("unset", cmd->value[1]), 2);
+	status = 0;
 	while (cmd)
 	{
-		delete_var(&data->env, cmd->value);
+		if (!check_unset(cmd->value))
+			status = 1;
+		else
+			delete_var(&data->env, cmd->value);
 		cmd = cmd->next;
 	}
-	return (0);
+	return (status);
 }

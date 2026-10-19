@@ -40,17 +40,18 @@ static int	update_internal_pwd(t_data *data)
 
 int	ft_chdir(t_data *data, char *path)
 {
-	chdir(path);
-	if (errno == ENOENT)
-		return (error_chdir(path, "No such file or directory"), 1);
-	else if (errno == ENOTDIR)
-		return (error_chdir(path, "Not a directory"), 1);
-	else if (errno == EACCES)
-		return (error_chdir(path, "Permission denied"), 1);
-	else if (errno == ENAMETOOLONG)
-		return (error_chdir(path, "File name too long"), 1);
-	else if (errno != 0)
+	if (chdir(path) < 0)
+	{
+		if (errno == ENOENT)
+			return (error_chdir(path, "No such file or directory"), 1);
+		else if (errno == ENOTDIR)
+			return (error_chdir(path, "Not a directory"), 1);
+		else if (errno == EACCES)
+			return (error_chdir(path, "Permission denied"), 1);
+		else if (errno == ENAMETOOLONG)
+			return (error_chdir(path, "File name too long"), 1);
 		return (error_chdir(path, "Unexpected error in chdir"), 1);
+	}
 	if (update_internal_pwd(data))
 		return (1);
 	update_pwd(data);

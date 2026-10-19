@@ -12,6 +12,7 @@
 
 #include "../../inc/free.h"
 #include "../../inc/parser.h"
+#include "../../inc/utils.h"
 #include "../../libft/libft.h"
 #include <sys/wait.h>
 
@@ -25,7 +26,7 @@ static int	execute_operator(t_cmd *cmd, t_data *data)
 	return (status);
 }
 
-static void	delete_node_redir(t_token **token)
+void	delete_node_redir(t_token **token)
 {
 	t_token	*curr;
 	t_token	*prev;
@@ -54,8 +55,38 @@ static void	delete_node_redir(t_token **token)
 	}
 }
 
+void	apply_heredoc(t_token *cmd, int *input, int h_fd)
+{
+	t_token	*curr;
+	bool	last_is_h;
+
+	if (h_fd == -1)
+		return ;
+	curr = cmd;
+	last_is_h = false;
+	while (curr)
+	{
+		if (!ft_strcmp(curr->value, "<<"))
+			last_is_h = true;
+		else if (!ft_strcmp(curr->value, "<"))
+			last_is_h = false;
+		curr = curr->next;
+	}
+	if (last_is_h)
+	{
+		if (*input != -1)
+			close(*input);
+		*input = h_fd;
+	}
+	else
+		close(h_fd);
+}
+
 int	execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output)
 {
+	int	h_fd;
+	int	status;
+
 	if (!cmd)
 		return (fd_printf(2, "ERROR CMD\n"), 1);
 	if (cmd->op == PIPE)
@@ -64,12 +95,15 @@ int	execute_cmd_tree(t_cmd *cmd, t_data *data, int input, int output)
 		return (execute_operator(cmd, data));
 	if (!expand(&cmd->command, data))
 		return (1);
-	if (heredoc(cmd->command))
-		return (1);
+	h_fd = -1;
+	status = heredoc(cmd->command, &h_fd);
+	if (status)
+		return (status);
 	if (set_redirections(cmd->command, &input, &output))
-		return (1);
+		return (ft_close_files(h_fd, -1, false), 1);
+	apply_heredoc(cmd->command, &input, h_fd);
 	delete_node_redir(&cmd->command);
 	if (!cmd->command)
-		return (0);
+		return (ft_close_files(input, output, false), 0);
 	return (execute(cmd, data, input, output));
 }
