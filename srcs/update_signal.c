@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>
 #include <unistd.h>
-#include <stdio.h>
 #include "../inc/global.h"
 
 void	rl_base_signal(int sig)
