@@ -1,146 +1,132 @@
-*This project has been created as part of the 42 curriculum by adrmarqu.*
+# Minishell - 42 Barcelona
 
-# Minishell
+Minishell is a major systems programming project from the 42 Barcelona curriculum. The goal is to build an interactive UNIX command-line interpreter in C modeled after GNU Bash. Minishell explores low-level operating system concepts including process creation and lifecycle (fork, execve, waitpid), inter-process communication using pipes, file descriptor manipulation with dup2, signal interception (SIGINT, SIGQUIT), abstract syntax tree parsing, environment variable resolution, and interactive line editing via the GNU Readline library.
 
-## Description
+# Prerequisites
 
-Minishell is a 42 school curriculum project whose goal is to create a simple UNIX command-line interpreter (a minimal version of bash). Through this project, we explore and implement key operating system concepts including process creation and lifecycle (`fork`, `execve`, `waitpid`), file descriptors and redirections (`pipe`, `dup2`), signal handling (`SIGINT`, `SIGQUIT`), abstract syntax tree parsing, and interactive line editing using the GNU Readline library.
+To compile and execute Minishell, you will need:
 
-The shell displays a prompt, parses user input into commands, expands environment variables, handles quotes, manages standard input/output redirections and pipes, and executes built-in commands or external binaries located via the `PATH` environment variable.
+- A C compiler: gcc or clang
+- GNU Make
+- The GNU Readline development library (libreadline)
 
-## Instructions
+### macOS Setup
 
-### Prerequisites
-
-To compile and run Minishell, you need:
-- A C compiler (`gcc` or `clang`)
-- GNU `make`
-- The GNU `readline` development library
-
-#### macOS Installation
-
-On macOS, install `readline` using Homebrew:
-
+Install Readline using Homebrew:
 ```bash
 brew install readline
 ```
 
-If the compiler cannot find `readline.h` or `-lreadline`, ensure the compiler includes Homebrew's paths (e.g., in Apple Silicon `/opt/homebrew/opt/readline` or Intel `/usr/local/opt/readline`):
-
+If your compiler does not find Readline headers automatically on Apple Silicon or Intel Macs, export the appropriate flags:
 ```bash
 export CPATH="$(brew --prefix readline)/include:$CPATH"
 export LIBRARY_PATH="$(brew --prefix readline)/lib:$LIBRARY_PATH"
 ```
 
-#### Linux (Debian/Ubuntu) Installation
+### Linux (Debian / Ubuntu) Setup
 
-On Debian-based systems, install the dependencies via `apt`:
-
+Install dependencies via apt:
 ```bash
 sudo apt update
 sudo apt install build-essential libreadline-dev
 ```
 
+# Configuration
+
+1. Clone the repository:
+```bash
+git clone https://github.com/adrmarqu/minishell.git
+cd minishell
+```
+
+No external configuration files are needed. Minishell inherits your current operating system environment variables upon launch.
+
+# Execution
+
 ### Compilation
 
-Clone the repository and compile the executable:
-
+Compile the bundled libft library and the minishell binary:
 ```bash
 make
 ```
 
-Available Makefile targets:
-- `make` or `make all`: Compiles `libft` and `minishell`.
-- `make clean`: Removes object and dependency files.
-- `make fclean`: Removes object files, dependency files, and the `minishell` binary.
-- `make re`: Recompiles the entire project from scratch.
+### Launching the Shell
 
-### Execution
-
-Once compiled, launch the shell:
-
+Start Minishell interactively:
 ```bash
 ./minishell
 ```
 
-To exit the shell, use the built-in `exit` command or press `Ctrl-D` on an empty line:
+### Exiting the Shell
 
+Exit the interactive session at any time by running the built-in exit command or pressing Ctrl-D on an empty prompt line:
 ```bash
-minishell> exit
+minishell$ exit
 ```
 
-## Features
+# Project Structure
 
-- **Prompt**: Displays an interactive prompt waiting for user commands.
-- **History**: Navigates previously entered commands using arrow keys (powered by Readline).
-- **External Commands**: Searches and launches executables based on the `PATH` variable or relative/absolute paths.
-- **Built-in Commands**:
-  - `echo` (with `-n` option)
-  - `cd` (relative or absolute path, `~`, HOME fallback)
-  - `pwd` (prints current directory)
-  - `export` (sets environment variables and prints exported list)
-  - `unset` (removes environment variables)
-  - `env` (displays environment variables)
-  - `exit` (exits the shell with numeric status)
-- **Redirections**:
-  - `<`: Redirects standard input from a file.
-  - `>`: Redirects standard output to a file (truncates existing file).
-  - `>>`: Redirects standard output in append mode.
-  - `<<`: Here-document (reads input until a specified delimiter is encountered).
-- **Pipes**:
-  - `|`: Connects the standard output of each command to the standard input of the next.
-- **Environment Variables**:
-  - Expands `$VAR` to its corresponding environment value.
-  - Expands `$?` to the exit status of the most recently executed pipeline.
-- **Signals**:
-  - `Ctrl-C`: Displays a new prompt on a new line in interactive mode; cancels here-document or interrupts running commands.
-  - `Ctrl-D`: Exits the shell (or terminates input in here-document).
-  - `Ctrl-\`: Does nothing in interactive prompt mode.
-- **Bonus Features**:
-  - `&&` and `||` logical operators with parenthesis priority parsing.
-  - Wildcard expansion (`*`) for matching files in the current working directory.
-
-## Usage Examples
-
-```bash
-# Basic command execution
-minishell> ls -la
-
-# Environment variable expansion
-minishell> echo "Hello $USER, current status: $?"
-
-# Redirections
-minishell> echo "42 Barcelona" > test.txt
-minishell> cat < test.txt
-minishell> echo "New line" >> test.txt
-
-# Here-document
-minishell> cat << EOF
-> line 1
-> line 2
-> EOF
-
-# Pipelines
-minishell> cat Makefile | grep CC | wc -l
-
-# Logical operators and parenthesis
-minishell> (ls nonexistent || echo "Failed") && echo "Recovered"
-
-# Wildcards
-minishell> ls *.c
+```
+minishell/
+├── Makefile                 # Build orchestration for Minishell and bundled Libft
+├── en.subject.pdf           # 42 School official project specification
+├── inc/                     # Header files
+│   ├── minishell.h          # Core structures, tokens, and data models
+│   ├── builtins.h           # Declarations for internal shell commands
+│   ├── parser.h             # Lexer, tokenizer, and grammar validation
+│   ├── executor.h           # Process spawning, pipes, and file redirections
+│   └── signals.h            # Signal handlers across prompt and child contexts
+├── libft/                   # Bundled custom C utility library
+└── srcs/                    # Implementation modules
+    ├── main.c               # REPL loop and prompt listener
+    ├── builtins/            # echo, cd, pwd, export, unset, env, and exit
+    ├── parser/              # Tokenization, quote parsing, syntax tree generation
+    ├── executor/            # Execution pipeline, command lookup, fork/exec/wait
+    ├── redirections/        # File descriptor redirection (<, >, >>, << heredoc)
+    ├── env/                 # Environment table manipulation and expansion ($VAR, $?)
+    └── signals/             # Ctrl-C, Ctrl-D, and Ctrl-\ handling
 ```
 
-## Resources
+# Commands and Makefile Targets
 
-### References
-- [GNU Bash Reference Manual](https://www.gnu.org/software/bash/manual/)
-- [GNU Readline Library Documentation](https://tiswww.case.edu/php/chet/readline/rltop.html)
-- [POSIX.1-2017 Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html)
-- [Writing Your Own Shell - Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
-- [UNIX File Descriptors and Pipes (CS Harvard)](https://www.cs.princeton.edu/courses/archive/fall10/cos217/lectures/17Pipes.pdf)
+- make or make all: Compiles the bundled Libft library and links the minishell executable
+- make clean: Deletes all object files (.o) and dependency files (.d)
+- make fclean: Runs clean and removes the compiled minishell binary and libft.a
+- make re: Rebuilds the entire project from scratch
 
-### AI Usage
-AI was utilized in this project for:
-1. **Heredoc Diagnosis and Fix**: Identifying why here-document input was discarded instead of piped to standard input, resolving child/parent signal propagation on `SIGINT` (Ctrl-C) to correctly cancel input and set exit status `130`, and ensuring proper file descriptor handoff and cleanup without leaks.
-2. **Codebase Review**: Auditing compliance with the 42 subject rules regarding allowed system calls, signal global variable usage restrictions, and pipe execution limitations.
-3. **Documentation**: Structuring this `README.md` in adherence to the 42 Subject Chapter V requirements.
+# Shell Features
+
+- Interactive Prompt and History: Displays a prompt, parses inputs, and navigates command history using up and down arrow keys.
+- Command Search: Searches executables through the system PATH or directly through relative (./prog) and absolute (/bin/ls) paths.
+- Built-in Commands:
+  - echo: Prints arguments with optional -n flag to suppress trailing newlines
+  - cd: Changes the working directory (supports relative, absolute, ~, and HOME fallback)
+  - pwd: Prints the current working directory path
+  - export: Sets environment variables and lists exported variables in alphabetical order
+  - unset: Unsets specified environment variables
+  - env: Prints all exported environment variables
+  - exit: Terminates the shell with an optional integer exit status
+- Redirections:
+  - <: Redirects standard input from a file
+  - >: Redirects standard output to a file, truncating existing content
+  - >>: Redirects standard output in append mode
+  - <<: Here-document, buffering input until a specific delimiter token is entered
+- Pipes:
+  - |: Chains multiple commands together, routing stdout of each command into stdin of the next
+- Expansion:
+  - $VAR: Expands to the value of the environment variable
+  - $?: Expands to the exit code of the most recently executed pipeline
+- Signals:
+  - Ctrl-C: Emits a newline and displays a clean prompt (cancels running heredoc or process)
+  - Ctrl-D: Sends EOF, exiting the shell or terminating here-document input
+  - Ctrl-\: Ignored during interactive prompt mode, mimicking Bash behavior
+- Bonus Capabilities:
+  - Logical operators && (AND) and || (OR) with parenthesis priority parsing
+  - Wildcard pattern expansion (*) matching files within the current directory
+
+# Author Details
+
+Author: Adrià Márquez Nebot
+Github: https://github.com/adrmarqu
+LinkedIn: https://www.linkedin.com/in/adria-marquez
+Portfolio: https://adrmarqu.github.io
